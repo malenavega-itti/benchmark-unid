@@ -46,6 +46,45 @@ body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;line-he
 .nav-btn-add .nav-dot{background:var(--green)!important}
 .nav-btn-add:hover{background:var(--gbg)}
 
+
+/* ── LANDING SCREENSHOT ── */
+.landing-wrap{display:flex;flex-direction:column;gap:0}
+.landing-img-wrap{position:relative;width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--b1);background:var(--s2);min-height:180px;display:flex;align-items:center;justify-content:center}
+.landing-shot{width:100%;display:block;border-radius:10px;transition:opacity .3s}
+.landing-img-wrap .land-loading{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t4);letter-spacing:.5px}
+.landing-footer{display:flex;align-items:center;justify-content:between;margin-top:10px;gap:10px;flex-wrap:wrap}
+.landing-link{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--green);text-decoration:none;letter-spacing:.5px;padding:5px 12px;border:1px solid var(--gborder);border-radius:20px;background:var(--gbg);transition:all .15s;margin-left:auto}
+.landing-link:hover{background:var(--green);color:#fff}
+.landing-note{font-size:11px;color:var(--t4);line-height:1.5;flex:1}
+
+
+/* ── FLUJO DE LOGIN/SIGNUP ── */
+.flow-wrap{padding:20px 22px 24px}
+.flow-section{margin-bottom:24px}
+.flow-section:last-child{margin-bottom:0}
+.flow-label{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--t4);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.flow-label::after{content:'';flex:1;height:1px;background:var(--b1)}
+.flow-label.enroll{color:#7c3aed}.flow-label.login{color:#2563eb}.flow-label.b2b{color:#d97706}
+.flow-steps{display:flex;align-items:flex-start;gap:0;flex-wrap:wrap;row-gap:8px}
+.flow-step{display:flex;flex-direction:column;align-items:center;position:relative}
+.flow-node{min-width:72px;max-width:90px;padding:8px 10px;border-radius:8px;text-align:center;border:1.5px solid var(--b1);background:var(--s1);cursor:default;transition:border-color .15s,box-shadow .15s}
+.flow-node:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);border-color:var(--b2)}
+.flow-node.start{border-color:#1aaa55;background:rgba(26,170,85,.06)}
+.flow-node.end{border-color:#2563eb;background:rgba(37,99,235,.06)}
+.flow-node.decision{border-color:#d97706;background:rgba(217,119,6,.05);border-radius:4px;transform:rotate(0deg)}
+.flow-node.action{border-color:var(--b1)}
+.flow-node.biometric{border-color:#7c3aed;background:rgba(124,58,237,.05)}
+.flow-node.error{border-color:#dc2626;background:rgba(220,38,38,.05)}
+.flow-icon{font-size:16px;line-height:1;margin-bottom:3px}
+.flow-text{font-size:9.5px;font-weight:600;color:var(--t2);line-height:1.3}
+.flow-sub{font-size:8.5px;color:var(--t4);margin-top:2px;line-height:1.2}
+.flow-arrow{display:flex;align-items:center;padding:0 4px;color:var(--b2);font-size:14px;margin-top:16px;flex-shrink:0}
+.flow-arrow.yes{color:#1aaa55}.flow-arrow.no{color:#dc2626}
+.flow-arrow-label{font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--t4);margin-top:2px}
+.flow-time{display:inline-flex;align-items:center;gap:4px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--t4);background:var(--s2);border:1px solid var(--b1);padding:3px 8px;border-radius:20px;margin-top:10px}
+.flow-time span{color:var(--t2);font-weight:600}
+.flow-note{font-size:11px;color:var(--t3);line-height:1.5;background:var(--s2);border-left:2px solid var(--b2);padding:8px 12px;border-radius:0 6px 6px 0;margin-top:12px}
+
 /* ── SEARCH PAGE ── */
 .search-wrap{max-width:860px;margin:0 auto;padding:56px 0 80px}
 .search-hero{text-align:center;margin-bottom:48px}
@@ -448,6 +487,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'cl-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'cl-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'cl-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'cl-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="cl-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">"Tu cara es tu credencial." Identidad biométrica que acompaña en cada momento: aeropuertos, estadios, hospitales, hoteles. Narrativa central: recuperar el tiempo que perdés en filas.</div></div>
@@ -479,6 +519,55 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">El modelo "Members": tratar a los usuarios como miembros, no como cuentas. UNID puede usar este lenguaje para crear sentido de pertenencia en todo el ecosistema — "con UNID sos parte".<br/><br/>La presencia física en puntos de alto tráfico y emoción. UNID tiene los estadios de Olimpia y Cerro — eso es equivalente a los aeropuertos de CLEAR. Un cartel de "Ingreso rápido con UNID" en el estadio es branding poderoso y gratuito.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">CLEAR tiene aeropuertos. UNID tiene estadios + delivery + banco. El beneficio tangible inmediato existe — falta nombrarlo y mostrarlo. La biometría en ingreso a estadios (Olimpia, Cerro) sería el equivalente exacto del carril CLEAR.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El modelo de membresía paga ($199/año). En el contexto de Paraguay, cobrar por la identidad sería una barrera enorme. La membresía de UNID tiene que ser gratuita y el valor viene de la red de apps.</div></div>
+      </div>
+      
+      
+      
+      <div id="cl-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://clearme.com&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · clearme.com</span>
+            <a class="landing-link" href="https://clearme.com" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label enroll">① Enrollment (una sola vez)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">📱</div><div class="flow-text">Descargá la app</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🪪</div><div class="flow-text">Escaneá tu ID</div><div class="flow-sub">Pasaporte o licencia</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">👁️</div><div class="flow-text">Captura biométrica</div><div class="flow-sub">Iris + huellas</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">💳</div><div class="flow-text">Pagá membresía</div><div class="flow-sub">$189/año</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">CLEAR activado</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Tiempo de enrollment: <span>~10 min (presencial)</span></div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label login">② Uso diario (aeropuerto / estadio)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🛫</div><div class="flow-text">Llegás al checkpoint</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">👁️</div><div class="flow-text">Escaneás iris en kiosco</div><div class="flow-sub">~3 segundos</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🧑‍✈️</div><div class="flow-text">Agente confirma</div><div class="flow-sub">Visual rápido</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🚀</div><div class="flow-text">Pasás directo</div><div class="flow-sub">Sin fila</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Tiempo de acceso: <span>&lt;1 minuto</span></div>
+  </div>
+  <div class="flow-note">📌 El beneficio inmediato (saltear la fila) es lo que justifica el enrollment presencial y el pago.</div>
+</div>
       </div>
     </div>
 
@@ -526,6 +615,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'wi-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'wi-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'wi-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'wi-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="wi-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Nació durante la pandemia para entradas sin contacto. Hoy: "tu cara es tu ticket, tu pago, tu credencial". Foco absoluto en la fluidez de la experiencia del juego en vivo.</div></div>
@@ -553,6 +643,53 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">El flujo de enrollment previo al evento: la selfie + vinculación de ticket que Wicket propone puede adaptarse perfectamente a UNID. Antes del partido de Olimpia, el fan vincula su CI + selfie y al estadio entra con la cara. Cero fricción en el momento de mayor emoción.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">UNID tiene algo que Wicket nunca tuvo: la relación preexistente con los clubes (Olimpia, Cerro, APF). Wicket tenía que convencer a cada venue desde cero. UNID puede desplegar esto desde el ecosistema existente.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El modelo de invisibilidad total. Wicket eligió ser la plomería invisible y eso lo deja sin brand equity propio. UNID tiene que ser visible en el ingreso al estadio, en la app del club, en la experiencia completa.</div></div>
+      </div>
+      
+      
+      
+      <div id="wi-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://wicket.io&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · wicket.io</span>
+            <a class="landing-link" href="https://wicket.io" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label enroll">① Enrollment (fan / empleado)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🎟️</div><div class="flow-text">Comprás ticket o pase</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🤳</div><div class="flow-text">Subís selfie</div><div class="flow-sub">Desde casa</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🔗</div><div class="flow-text">Se vincula a tu cuenta</div><div class="flow-sub">Automático</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Listo para el evento</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Enrollment: <span>2 min (remoto)</span></div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label login">② Entrada al estadio</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🏟️</div><div class="flow-text">Llegás al estadio</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">😊</div><div class="flow-text">Cámara escanea tu cara</div><div class="flow-sub">Sin sacar el teléfono</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node decision"><div class="flow-icon">🔍</div><div class="flow-text">¿Match?</div></div></div>
+      <div class="flow-arrow yes">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🟢</div><div class="flow-text">Molinete abre</div><div class="flow-sub">Acceso inmediato</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Acceso: <span>&lt;3 segundos</span></div>
+  </div>
+  <div class="flow-note">📌 Wicket es invisible para el fan — simplemente pasa. El valor está en no tener que hacer nada.</div>
+</div>
       </div>
     </div>
 
@@ -587,6 +724,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'ts-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'ts-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'ts-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'ts-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="ts-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Precursor conceptual de toda la industria: si el estado ya te conoce y te considera de bajo riesgo, no pasás por los mismos controles. "Viajero conocido = viajero privilegiado."</div></div>
@@ -611,6 +749,52 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La promesa conceptual: "ya te conozco, podés pasar más rápido." TSA PreCheck demostró que los usuarios adoptan masivamente un sistema de identidad si el beneficio concreto es claro y recurrente. UNID puede replicar esa lógica: "ya tenés UNID, entrá directo."</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El brand equity lo construyen terceros (aerolíneas, tarjetas de crédito), no el propio programa. TSA nunca construyó su propia relación emocional con el usuario. UNID no puede darse ese lujo: necesita ser visible en su propia marca.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">El concepto "trusted traveler" traducido al ecosistema UNID: "usuario UNID verificado = acceso rápido en todas las apps del grupo". Comunicarlo así, con ese nombre o concepto, puede ser poderoso.</div></div>
+      </div>
+      
+      
+      
+      <div id="ts-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://tsa.gov&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · tsa.gov</span>
+            <a class="landing-link" href="https://tsa.gov" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label enroll">① Enrollment TSA PreCheck</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">💻</div><div class="flow-text">Aplicás online</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">💵</div><div class="flow-text">Pagás $85</div><div class="flow-sub">5 años de vigencia</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📅</div><div class="flow-text">Turno presencial</div><div class="flow-sub">Huellas + foto</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🔎</div><div class="flow-text">Background check</div><div class="flow-sub">~3-5 días</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🆔</div><div class="flow-text">Recibís KTN</div><div class="flow-sub">Known Traveler Number</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Proceso total: <span>~2-3 semanas</span></div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label login">② Uso en aeropuerto</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">✈️</div><div class="flow-text">Ingresás tu KTN al reservar</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🎫</div><div class="flow-text">Boarding pass muestra TSA ✓</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🚶</div><div class="flow-text">Carril express</div><div class="flow-sub">Zapatos puestos, sin sacar laptop</div></div></div>
+    </div>
+  </div>
+  <div class="flow-note">📌 El mayor dolor es el enrollment (semanas, presencial, pago). El beneficio es recurrente y permanente una vez aprobado.</div>
+</div>
       </div>
     </div>
 
@@ -670,6 +854,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'ju-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'ju-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'ju-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'ju-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="ju-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">El guardián de confianza digital para empresas. Su trabajo: que las organizaciones sepan con certeza quién es cada persona antes de darle acceso. "Onboard faster, keep fraudsters out."</div></div>
@@ -696,6 +881,56 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La "biometric re-authentication": verificás una vez con documento completo y para los logins futuros solo necesitás el selfie. UNID puede adoptar esta lógica — después del onboarding inicial, el video selfie ya no debería ser necesario en cada acceso.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La invisibilidad total. Jumio puede permitirse ser invisible porque vende a empresas que pagan bien. UNID necesita que el usuario sepa que es UNID quien lo está verificando — esa es la base del brand equity.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">El modelo de Jumio como proveedor de KYC es técnicamente lo que itti USA provee hoy a UNID. La diferencia estratégica es que UNID tiene marca propia con el usuario — algo que Jumio jamás tuvo y nunca podrá tener.</div></div>
+      </div>
+      
+      
+      
+      <div id="ju-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://jumio.com&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · jumio.com</span>
+            <a class="landing-link" href="https://jumio.com" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label b2b">① Integración B2B (empresa cliente)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🏢</div><div class="flow-text">Empresa contrata Jumio</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">⚙️</div><div class="flow-text">Integra SDK / API</div><div class="flow-sub">Web o mobile</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🎛️</div><div class="flow-text">Configura reglas</div><div class="flow-sub">País, doc tipo, riesgo</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🚀</div><div class="flow-text">KYC activo</div></div></div>
+    </div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label enroll">② Experiencia del usuario final</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">📱</div><div class="flow-text">Usuario abre app</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🪪</div><div class="flow-text">Fotea documento</div><div class="flow-sub">DNI, pasaporte</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">🤳</div><div class="flow-text">Video selfie</div><div class="flow-sub">Liveness check</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🤖</div><div class="flow-text">IA verifica en segundos</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node decision"><div class="flow-icon">⚖️</div><div class="flow-text">¿Pasa?</div></div></div>
+      <div class="flow-arrow yes">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Cuenta verificada</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Verificación: <span>&lt;60 segundos</span></div>
+  </div>
+  <div class="flow-note">📌 Muy similar a UNID con video selfie + CI. La diferencia es que Jumio es infraestructura B2B pura — el usuario no sabe que es Jumio.</div>
+</div>
       </div>
     </div>
 
@@ -752,6 +987,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'su-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'su-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'su-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'su-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="su-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Plataforma de verificación de ciclo completo: no solo verifica al entrar, sino que monitorea durante toda la vida del cliente. "Secure the whole user journey."</div></div>
@@ -777,6 +1013,56 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">Sumsub lanzó en 2025 su "identidad digital reutilizable" con exactamente el mismo pitch que UNID debería tener: verificás una vez, usás en múltiples servicios. UNID tiene esto como core desde el día 1 — hay que comunicarlo con esa claridad y esa contundencia.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">La diferenciación de color de Sumsub (verde en un mar de azules) es exactamente lo que UNID ya tiene con #2CC76B. En Paraguay, el verde UNID puede ser tan reconocible como el naranja de Auth0 o el verde de Sumsub. Consistencia de color = brand equity gratis.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La invisibilidad frente al usuario final. El producto de Sumsub es técnicamente muy sólido pero el usuario nunca sabe que lo usó.</div></div>
+      </div>
+      
+      
+      
+      <div id="su-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://sumsub.com&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · sumsub.com</span>
+            <a class="landing-link" href="https://sumsub.com" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label b2b">① Setup B2B</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🏢</div><div class="flow-text">Empresa integra Sumsub</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🗺️</div><div class="flow-text">Define flujo por país</div><div class="flow-sub">No-code dashboard</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📋</div><div class="flow-text">Configura niveles KYC/KYB</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Widget listo</div></div></div>
+    </div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label enroll">② Verificación del usuario</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">👤</div><div class="flow-text">Usuario inicia registro</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🪪</div><div class="flow-text">Sube documento</div><div class="flow-sub">Foto o NFC</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">🎥</div><div class="flow-text">Liveness check</div><div class="flow-sub">Video corto</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🔍</div><div class="flow-text">AML / Sanction screening</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node decision"><div class="flow-icon">⚖️</div><div class="flow-text">Revisión</div></div></div>
+      <div class="flow-arrow yes">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Aprobado</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Auto-aprobación: <span>&lt;2 min</span> · Manual review: <span>hasta 24 hs</span></div>
+  </div>
+  <div class="flow-note">📌 Sumsub agrega AML y screening de listas negras encima del KYC — pensado para fintechs con compliance regulatorio.</div>
+</div>
       </div>
     </div>
 
@@ -833,6 +1119,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'ai-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'ai-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'ai-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'ai-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="ai-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Filosofía radical: "tu identidad te pertenece." Verificás una vez y controlás vos mismo con quién compartís tus datos, cuándo y por cuánto tiempo.</div></div>
@@ -860,6 +1147,52 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text"><strong>Todo el marco de privacidad.</strong> "Tu identidad te pertenece" es exactamente la posición que UNID podría ocupar en Paraguay — y nadie más la está tomando. El hecho de que el usuario pueda ver con qué apps está conectado y desconectarse es una feature de producto y un mensaje de marca simultáneamente.<br/><br/>La postura de "no tenemos base de datos central de PII" es poderosa. Si UNID puede hacer algo equivalente (aunque sea en comunicación), construye una confianza que ningún otro jugador local puede replicar.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">Airside intentó construir partnerships con aerolíneas desde cero. UNID ya tiene los partnerships (ueno, Monchis, Olimpia). La arquitectura de "identidad que el usuario controla" puede desplegarse sobre la base existente sin depender de que nuevos partners se sumen.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">Airside tuvo que adquirir su propio canal de distribución (aerolíneas). Su debilidad fue que el ecosistema de partners creció lento. UNID tiene el ecosistema — el riesgo opuesto es no construir la capa de marca encima.</div></div>
+      </div>
+      
+      
+      
+      <div id="ai-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://airside.io&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · airside.io</span>
+            <a class="landing-link" href="https://airside.io" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label enroll">① Verificación una sola vez</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">📱</div><div class="flow-text">Descargás Airside</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🛂</div><div class="flow-text">Verificás en kiosco o NFC</div><div class="flow-sub">Aeropuerto o gobierno</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">🤳</div><div class="flow-text">Selfie de liveness</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🔐</div><div class="flow-text">Credencial guardada en tu teléfono</div><div class="flow-sub">Solo vos la controlás</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Enrollment: <span>~5 min</span></div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label login">② Compartir con apps (on demand)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🏨</div><div class="flow-text">App te pide verificación</div><div class="flow-sub">Hotel, aerolínea, etc.</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📲</div><div class="flow-text">Airside te notifica</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node decision"><div class="flow-icon">🤔</div><div class="flow-text">¿Autorizás?</div></div></div>
+      <div class="flow-arrow yes">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Solo los datos que elegiste</div><div class="flow-sub">Control granular</div></div></div>
+    </div>
+  </div>
+  <div class="flow-note">📌 El modelo de privacidad es la propuesta diferencial: vos elegís qué datos compartir con cada app, cada vez.</div>
+</div>
       </div>
     </div>
 
@@ -930,6 +1263,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'ok-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'ok-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'ok-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'ok-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="ok-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">"Identity is the new perimeter." (Okta) — "Stop building auth, start building your app." (Auth0) Para developers que no quieren gastar tiempo en autenticación.</div></div>
@@ -955,6 +1289,52 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La dualidad de audiencias con dos identidades de marca distintas. Okta habla a CISOs; Auth0 habla a developers. UNID tiene el mismo desafío exacto: una marca para el usuario final (Paraguay que usa apps) y un lenguaje completamente distinto para empresas que quieran integrar UNID como capa de identidad.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">El "Universal Login" brandeable de Auth0 es lo que UNID debería ofrecer a sus empresas socias: cada partner puede customizar la pantalla de login de UNID con su propia marca, manteniendo el "powered by UNID" visible. Así el usuario aprende que UNID está detrás de muchas apps.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El modelo puramente B2B sin relación directa con el usuario final. Okta/Auth0 son técnicamente brillantes pero no construyeron loyalty con el usuario — si las empresas migran de proveedor, Okta desaparece de la vida del usuario.</div></div>
+      </div>
+      
+      
+      
+      <div id="ok-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://okta.com&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · okta.com</span>
+            <a class="landing-link" href="https://okta.com" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label b2b">① Configuración IT (empresa)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🏢</div><div class="flow-text">Empresa configura Okta</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🔗</div><div class="flow-text">Conecta apps (SSO)</div><div class="flow-sub">Salesforce, Slack, etc.</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📋</div><div class="flow-text">Define políticas MFA</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Empleados acceden</div></div></div>
+    </div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label login">② Login del empleado / usuario</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">💻</div><div class="flow-text">Abre cualquier app</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🔑</div><div class="flow-text">Redirige a Okta</div><div class="flow-sub">Login centralizado</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">📱</div><div class="flow-text">MFA (Okta Verify)</div><div class="flow-sub">Push o biometría</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🚀</div><div class="flow-text">Accede a todas las apps</div><div class="flow-sub">Con 1 sesión</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Login: <span>~5 segundos</span></div>
+  </div>
+  <div class="flow-note">📌 Okta/Auth0 es el referente más directo de UNID en modelo SSO. La diferencia es que Okta es workforce/enterprise — UNID es consumer con KYC.</div>
+</div>
       </div>
     </div>
 
@@ -999,6 +1379,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'en-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'en-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'en-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'en-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="en-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Décadas en certificados digitales y PKI. Hoy: plataforma más completa de identidad digital end-to-end. "Digital trust for a demanding world." Adquirió Onfido (KYC biométrico) y Airside (wallet de identidad).</div></div>
@@ -1020,6 +1401,52 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La visión de portafolio completo: Entrust compró Onfido (KYC) + Airside (wallet) para tener la cadena completa desde el documento físico hasta el wallet digital. UNID puede contar esa misma historia a escala local: desde la CI paraguaya hasta la identidad digital en todas las apps.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">La narrativa de "del documento físico al wallet digital" es exactamente el arco de UNID hacia 2027. CI → UNID hoy. UNID → wallet con documentos del Estado en 2027. Es la misma historia que Entrust, contada desde Paraguay y para paraguayos.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El lenguaje de PKI y enterprise que hace que nadie entienda qué hace Entrust. UNID tiene la oportunidad de contar una historia de identidad compleja en lenguaje humano.</div></div>
+      </div>
+      
+      
+      
+      <div id="en-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://entrust.com&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · entrust.com</span>
+            <a class="landing-link" href="https://entrust.com" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label b2b">① Emisión de credencial digital (institución)</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🏛️</div><div class="flow-text">Institución (banco/gobierno)</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">⚙️</div><div class="flow-text">Implementa Entrust PKI</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🪪</div><div class="flow-text">Emite credencial al usuario</div><div class="flow-sub">Digital o física</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🔐</div><div class="flow-text">Credencial certificada</div></div></div>
+    </div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label login">② Autenticación del usuario</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">👤</div><div class="flow-text">Usuario necesita acceder</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📲</div><div class="flow-text">Presenta credencial</div><div class="flow-sub">App Entrust Identity</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">🔍</div><div class="flow-text">Verifica con PKI</div><div class="flow-sub">Criptografía de clave pública</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Acceso garantizado</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Verificación: <span>instantánea</span></div>
+  </div>
+  <div class="flow-note">📌 Entrust apunta a identidad institucional de alta seguridad — gobiernos, bancos, salud. Infraestructura más compleja que UNID necesita hoy.</div>
+</div>
       </div>
     </div>
 
@@ -1078,6 +1505,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'ap-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'ap-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'ap-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'ap-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="ap-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">La identidad es un feature del dispositivo. "Lo que pasa en tu iPhone, se queda en tu iPhone." Identidad construida desde adentro hacia afuera: primero el dispositivo, luego el OS, luego los servicios.</div></div>
@@ -1103,6 +1531,52 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">El copy declarativo y moral. Apple no dice "nuestra plataforma tiene privacidad avanzada" — dice "privacy is a fundamental human right." UNID puede hablar de identidad digital con ese mismo nivel de convicción: "tu CI digital es tuya. Siempre."<br/><br/>La idea del botón de login como activo de conversión. El "Iniciar sesión con Apple" es tan reconocido que genera confianza refleja. El "Ingresá con UNID" puede construir eso en Paraguay si la marca es consistente y el producto funciona bien.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">UNID debería tener un botón de login propio ("Ingresá con UNID") que aparezca en todas las apps del grupo con el mismo diseño, el mismo verde, el mismo nivel de confianza. Eso es construir brand equity sin gastar en publicidad.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La dependencia del ecosistema cerrado. Apple funciona porque casi todo pasa por iOS. UNID tiene que funcionar en cualquier dispositivo y cualquier app del ecosistema paraguayo.</div></div>
+      </div>
+      
+      
+      
+      <div id="ap-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://apple.com&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · apple.com</span>
+            <a class="landing-link" href="https://apple.com" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label login">① Sign in with Apple</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">📱</div><div class="flow-text">Usuario toca "Sign in with Apple"</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">👆</div><div class="flow-text">Face ID / Touch ID</div><div class="flow-sub">Sin contraseña</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node decision"><div class="flow-icon">📧</div><div class="flow-text">¿Ocultar email?</div><div class="flow-sub">Relay opcional</div></div></div>
+      <div class="flow-arrow yes">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🔑</div><div class="flow-text">Token enviado a la app</div><div class="flow-sub">Logged in</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Login total: <span>&lt;3 segundos</span></div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label enroll">② Apple Wallet — documentos</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🪪</div><div class="flow-text">Estado emite ID digital</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📲</div><div class="flow-text">Usuario agrega a Wallet</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node biometric"><div class="flow-icon">👆</div><div class="flow-text">Face ID para compartir</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">✅</div><div class="flow-text">Solo datos necesarios</div><div class="flow-sub">NFC o QR</div></div></div>
+    </div>
+  </div>
+  <div class="flow-note">📌 Apple logró que la biometría se sienta natural porque ya la usás para todo. UNID puede aprender que el gesto de "confirmar" debe ser conocido, no nuevo.</div>
+</div>
       </div>
     </div>
 
@@ -1154,6 +1628,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <button class="co-tab active" onclick="tab(this,'go-f')">Funcional</button>
         <button class="co-tab" onclick="tab(this,'go-m')">Marca</button>
         <button class="co-tab unid-tab" onclick="tab(this,'go-u')">→ UNID</button>
+        <button class="co-tab" onclick="tab(this,'go-wf')">🌐 Web + Flujo</button>
       </div>
       <div id="go-f" class="co-panel active">
         <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Identidad construida desde los servicios hacia el dispositivo: Gmail → Google Account → Android. "Una cuenta para todo internet." +3.000M cuentas activas.</div></div>
@@ -1179,6 +1654,52 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
         <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text"><strong>El efecto red de la identidad de marca.</strong> Cuantos más lugares tienen el botón de "Sign in with Google", más valioso se vuelve cada botón individual. UNID necesita pensar desde ahora en el "Ingresá con UNID" como un botón que aparece en todas las apps del grupo con el mismo diseño y el mismo nivel de confianza.<br/><br/>Google One Tap: la idea de detectar la cuenta existente y ofrecer login en un solo toque es perfectamente aplicable al flow de UNID para usuarios que ya tienen cuenta.</div></div>
         <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">La lógica de "una cuenta, todo el ecosistema" es la propuesta central de UNID. Google lo demostró a escala global. UNID puede demostrarlo en el ecosistema paraguayo con una ventaja que Google no tiene: los datos son locales, la CI es paraguaya, y el sistema no depende de Big Tech.</div></div>
         <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La dependencia de datos para publicidad que erosiona la confianza de privacidad. UNID tiene la oportunidad de ser el "Google sin el lado oscuro" para el mercado paraguayo.</div></div>
+      </div>
+      
+      
+      
+      <div id="go-wf" class="co-panel">
+        <div class="landing-wrap">
+          <div class="landing-img-wrap">
+            <span class="land-loading">Cargando preview…</span>
+            <img class="landing-shot" src="https://api.microlink.io/?url=https://developers.google.com/identity&screenshot=true&meta=false&embed=screenshot.url" loading="lazy"
+              onload="this.previousElementSibling.style.display='none'"
+              onerror="this.style.display='none';this.previousElementSibling.textContent='Preview no disponible'" />
+          </div>
+          <div class="landing-footer">
+            <span class="landing-note">Screenshot generado automáticamente · developers.google.com</span>
+            <a class="landing-link" href="https://developers.google.com/identity" target="_blank">Abrir sitio →</a>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--b1);margin:18px 0 4px"></div>
+        <div class="flow-wrap">
+  <div class="flow-section">
+    <div class="flow-label login">① Sign in with Google</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🖥️</div><div class="flow-text">Usuario toca botón Google</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">👤</div><div class="flow-text">Selecciona cuenta</div><div class="flow-sub">O logea si no tiene sesión</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node decision"><div class="flow-icon">📋</div><div class="flow-text">Pantalla de permisos</div><div class="flow-sub">Qué datos accede la app</div></div></div>
+      <div class="flow-arrow yes">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">🔑</div><div class="flow-text">OAuth token</div><div class="flow-sub">App autenticada</div></div></div>
+    </div>
+    <div class="flow-time">⏱ Login: <span>~5-10 segundos</span></div>
+  </div>
+  <div class="flow-section">
+    <div class="flow-label enroll">② Google Wallet — passes</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-node start"><div class="flow-icon">🎫</div><div class="flow-text">App emite pass/tarjeta</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">📲</div><div class="flow-text">"Agregar a Google Wallet"</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node action"><div class="flow-icon">🔔</div><div class="flow-text">Notificación contextual</div><div class="flow-sub">Aparece cuando llegás</div></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node end"><div class="flow-icon">📡</div><div class="flow-text">NFC o QR en punto de acceso</div></div></div>
+    </div>
+  </div>
+  <div class="flow-note">📌 Google Wallet tiene la ventaja del contexto: te muestra el boarding pass cuando llegás al aeropuerto. UNID puede pensar en notificaciones contextuales similares.</div>
+</div>
       </div>
     </div>
 
@@ -1752,6 +2273,7 @@ ESTRUCTURA EXACTA A SEGUIR:
     <button class="co-tab active" onclick="tab(this,'[PREFIJO]-f')">Funcional</button>
     <button class="co-tab" onclick="tab(this,'[PREFIJO]-m')">Marca</button>
     <button class="co-tab unid-tab" onclick="tab(this,'[PREFIJO]-u')">→ UNID</button>
+    <button class="co-tab" onclick="tab(this,'[PREFIJO]-w')">🌐 Web</button>
   </div>
   <div id="[PREFIJO]-f" class="co-panel active">
     <div class="row"><div class="row-lbl">Historia</div><div class="row-val">[...]</div></div>
