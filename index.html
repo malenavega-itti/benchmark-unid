@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UNID — Benchmark Identidad Digital 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f5f0;--s1:#ffffff;--s2:#f0f0eb;--s3:#eaeae4;--s4:#e4e4de;
+  --b1:#e0e0d8;--b2:#d0d0c8;--b3:#bbbbb0;
+  --t1:#111110;--t2:#444440;--t3:#777770;--t4:#aaaaaa;
+  --green:#1aaa55;--gbg:rgba(26,170,85,.07);--gborder:rgba(26,170,85,.25);
+  --green-dim:#157a3e;
+  --blue:#2563eb;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;line-height:1.6;font-size:14px;min-height:100vh}
+
+/* ── HEADER ── */
+.hdr{
+  padding:52px 60px 44px;
+  border-bottom:1px solid var(--b1);
+  background:linear-gradient(180deg,rgba(26,170,85,.05) 0%,transparent 100%);
+  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end
+}
+.hdr-kicker{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.kicker-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.kicker-text{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--green);letter-spacing:1.5px;text-transform:uppercase}
+.hdr h1{font-family:'Inter',sans-serif;font-size:42px;font-weight:800;color:var(--t1);line-height:1.05;margin-bottom:14px}
+.hdr h1 em{color:var(--green);font-style:normal}
+.hdr-desc{color:var(--t3);font-size:14px;max-width:540px;line-height:1.75}
+.hdr-meta{text-align:right}
+.meta-item{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t4);line-height:2;letter-spacing:.5px}
+.meta-val{color:var(--t3)}
+.hdr-stats{display:flex;gap:32px;margin-top:32px}
+.stat{padding:14px 20px;background:var(--s1);border:1px solid var(--b1);border-radius:12px}
+.stat-num{font-family:'Inter',sans-serif;font-size:26px;font-weight:800;color:var(--t1);line-height:1}
+.stat-label{font-size:11px;color:var(--t3);margin-top:4px;letter-spacing:.3px}
+
+/* ── NAV ── */
+.nav-wrap{position:sticky;top:0;z-index:200;background:rgba(245,245,240,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1)}
+.nav{display:flex;padding:0 60px;overflow-x:auto;scrollbar-width:none;gap:0}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:15px 18px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--t3);cursor:pointer;border:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;background:none;letter-spacing:.3px;position:relative}
+.nav-btn.active{color:var(--green);border-bottom-color:var(--green)}
+.nav-btn:hover:not(.active){color:var(--t2)}
+.nav-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--t4);margin-right:6px;vertical-align:middle;transition:background .2s}
+.nav-btn.active .nav-dot,.nav-btn:hover .nav-dot{background:var(--green)}
+
+/* ── MAIN ── */
+.main{padding:52px 60px;max-width:1500px}
+.page{display:none}.page.active{display:block}
+
+/* ── SECTION HEADER ── */
+.sec-hdr{display:flex;align-items:flex-start;gap:20px;margin-bottom:44px;padding-bottom:32px;border-bottom:1px solid var(--b1)}
+.sec-num{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--green);color:#000;
+  font-family:'Inter',sans-serif;font-size:18px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px
+}
+.sec-num.inv{background:var(--s1);color:var(--green);border:1px solid var(--gborder)}
+.sec-title{font-family:'Inter',sans-serif;font-size:26px;font-weight:800;color:var(--t1);letter-spacing:-.3px}
+.sec-sub{color:var(--t3);font-size:14px;margin-top:5px;line-height:1.6;max-width:600px}
+
+/* ── COMPANY GRID ── */
+.co-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:3px;margin-bottom:60px}
+
+/* ── COMPANY CARD ── */
+.co-card{
+  background:var(--s1);border:1px solid var(--b1);border-radius:22px;
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .2s,box-shadow .2s
+}
+.co-card:hover{border-color:var(--b2);box-shadow:0 8px 40px rgba(0,0,0,.1)}
+
+/* card top bar */
+.co-head{padding:20px 22px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--b1)}
+.co-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:18px;font-weight:800;flex-shrink:0;letter-spacing:-.5px}
+.co-info{flex:1;min-width:0}
+.co-name{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:var(--t1);line-height:1.2}
+.co-sub{font-size:11px;color:var(--t3);margin-top:3px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2px}
+.co-tag{font-size:10px;font-weight:700;padding:4px 10px;border-radius:8px;white-space:nowrap;letter-spacing:.3px;text-transform:uppercase;font-family:'IBM Plex Mono',monospace}
+
+/* ── BRAND VISUAL SECTION ── */
+.co-visual{display:grid;grid-template-columns:148px 1fr;border-bottom:1px solid var(--b1);height:220px;overflow:hidden}
+.co-logo-panel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px 14px;border-right:1px solid var(--b1);background:var(--s2)}
+.co-logo-wrap{width:62px;height:62px;border-radius:15px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.06)}
+.co-logo-wrap img{width:100%;height:100%;object-fit:contain;padding:8px}
+.co-palette{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.cp{width:15px;height:15px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+.co-logo-name{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--t4);letter-spacing:.2px;text-align:center;line-height:1.4}
+/* screens */
+.co-screens{display:grid;grid-template-columns:1fr 1fr;background:#fff;overflow:hidden}
+.co-screens>div:first-child{border-right:1px solid var(--b1)}
+.co-screen{position:relative;overflow:hidden;background:var(--s2);display:flex;align-items:stretch;min-height:220px}
+.co-screen>img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .6s,opacity .35s}
+.co-screen>img.loading{opacity:0}
+.co-screen:hover>img{transform:scale(1.04)}
+.co-screen-cap{position:absolute;bottom:0;left:0;right:0;padding:22px 10px 7px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:rgba(255,255,255,.95);font-size:9px;font-weight:600;font-family:'Inter',sans-serif}
+/* phone frame */
+.pf{display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:12px;background:var(--s2)}
+.pf-body{width:76px;background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.15),0 0 0 1.5px rgba(0,0,0,.1);overflow:hidden;display:flex;flex-direction:column;flex-shrink:0}
+.pf-notch{height:8px;background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pf-notch::after{content:'';width:18px;height:3px;background:#333;border-radius:2px}
+.pf-screen{flex:1;padding:7px 6px 8px;display:flex;flex-direction:column;min-height:134px}
+/* browser frame */
+.bf{display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:10px;background:var(--s2)}
+.bf-body{width:100%;height:100%;background:#fff;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+.bf-bar{height:20px;background:#f1f1f1;border-bottom:1px solid #e4e4e4;display:flex;align-items:center;padding:0 7px;gap:4px;flex-shrink:0}
+.bf-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.bf-url{flex:1;background:#e3e3e3;border-radius:3px;height:9px;margin:0 6px}
+.bf-content{flex:1;padding:8px;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+/* atoms */
+.m-bar{border-radius:3px;background:rgba(0,0,0,.09);flex-shrink:0}
+.m-tag{border-radius:10px;padding:2px 6px;font-size:7px;font-family:'IBM Plex Mono',monospace;display:inline-block;line-height:1.4;font-weight:600;letter-spacing:.3px}
+.m-lbl{font-size:8px;font-family:'IBM Plex Mono',monospace;line-height:1.35;letter-spacing:.15px}
+
+/* tabs */
+.co-tabs{display:flex;background:var(--s2);border-bottom:1px solid var(--b1)}
+.co-tab{flex:1;padding:11px 0;font-size:11px;font-weight:700;color:var(--t3);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid transparent;transition:all .15s}
+.co-tab.active{color:var(--green);border-bottom-color:var(--green);background:var(--s1)}.co-tab.unid-tab.active{color:var(--amber);border-bottom-color:var(--amber)}
+.co-tab:hover:not(.active){color:var(--t2)}
+
+/* panels */
+.co-panel{display:none;padding:20px 22px 22px;flex-direction:column;gap:0}
+.co-panel.active{display:flex}
+
+/* info rows */
+.row{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--b1)}
+.row:last-child{border-bottom:none}
+.row-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--t4);padding-top:2px;letter-spacing:.5px;text-transform:uppercase;line-height:1.4}
+.row-val{font-size:13px;color:var(--t2);line-height:1.65}
+.row-val.hi{color:var(--green)}
+.row-val.lo{color:var(--red);opacity:.7}
+.row-val.mid{color:var(--amber);opacity:.85}
+
+/* quote */
+.quote{border-left:2px solid var(--b3);padding:8px 14px;color:var(--t3);font-size:12.5px;font-style:italic;line-height:1.75;margin:2px 0}
+
+/* steps */
+.steps{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:2px}
+.step{font-size:11px;color:var(--t3);background:var(--s2);border:1px solid var(--b2);border-radius:7px;padding:4px 9px;font-family:'IBM Plex Mono',monospace}
+.step-arr{color:var(--t4);font-size:12px}
+
+/* swatches */
+.swatches{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:2px}
+.sw{width:24px;height:24px;border-radius:7px;border:1px solid rgba(255,255,255,.06);flex-shrink:0}
+.sw-name{font-size:11px;color:var(--t3);font-family:'IBM Plex Mono',monospace}
+
+/* UNID insight panel */
+.unid-panel{display:none;padding:20px 22px 22px;flex-direction:column;gap:12px}
+.unid-panel.active{display:flex}
+.u-section{border-radius:14px;overflow:hidden}
+.u-steal{background:var(--gbg);border:1px solid var(--gborder);border-radius:14px;padding:16px 18px}
+.u-steal-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--green);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.u-steal-text{font-size:13px;color:var(--t2);line-height:1.7}
+.u-avoid{background:rgba(255,82,82,.06);border:1px solid rgba(255,82,82,.15);border-radius:14px;padding:14px 18px}
+.u-avoid-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;opacity:.8}
+.u-avoid-text{font-size:13px;color:var(--t2);line-height:1.7;opacity:.8}
+.u-apply{background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15);border-radius:14px;padding:14px 18px}
+.u-apply-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--amber);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.u-apply-text{font-size:13px;color:var(--t2);line-height:1.7}
+
+/* ── SYNTHESIS CARDS ── */
+.syn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:52px}
+.syn-card{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:24px;position:relative;overflow:hidden;transition:border-color .2s}
+.syn-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),transparent)}
+.syn-card:hover{border-color:var(--b2)}
+.syn-n{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;color:var(--b3);position:absolute;top:16px;right:20px;line-height:1}
+.syn-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:var(--t1);margin-bottom:10px;line-height:1.3;padding-right:30px}
+.syn-body{font-size:13px;color:var(--t3);line-height:1.75}
+.syn-unid{margin-top:14px;padding-top:12px;border-top:1px solid var(--b2);font-size:12px;color:var(--green);line-height:1.65}
+.syn-unid::before{content:'→ UNID: ';font-weight:700}
+
+/* ── BRAND POSITIONS ── */
+.pos-grid{display:flex;flex-direction:column;gap:3px;margin-bottom:52px}
+.pos-card{background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:20px 24px;display:grid;grid-template-columns:48px 1fr auto;gap:16px;align-items:start;transition:border-color .2s}
+.pos-card:hover{border-color:var(--b2)}
+.pos-n{font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:var(--b3);line-height:1;padding-top:2px}
+.pos-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--t1);margin-bottom:5px}
+.pos-desc{font-size:13px;color:var(--t3);line-height:1.65}
+.pos-cos{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.pos-co{font-size:11px;font-weight:600;padding:3px 9px;border-radius:7px;background:var(--s2);color:var(--t4);font-family:'IBM Plex Mono',monospace;letter-spacing:.2px}
+.pos-score{text-align:right;padding-top:4px}
+.score-bar{width:80px;height:4px;background:var(--b2);border-radius:2px;margin-bottom:6px;overflow:hidden}
+.score-fill{height:100%;background:var(--green);border-radius:2px;transition:width .6s ease}
+.score-lbl{font-size:10px;color:var(--t4);font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+
+/* ── UNID OPPORTUNITY SECTION ── */
+.unid-opp{margin-top:12px;padding-top:44px;border-top:1px solid var(--b1)}
+.unid-opp-title{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--t1);margin-bottom:8px;letter-spacing:-.3px}
+.unid-opp-sub{color:var(--t3);font-size:14px;margin-bottom:28px;line-height:1.7;max-width:600px}
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.opp-card{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:22px;position:relative;overflow:hidden;transition:all .2s}
+.opp-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s}
+.opp-card:hover{border-color:var(--gborder);box-shadow:0 0 30px rgba(26,170,85,.08)}
+.opp-card:hover::before{opacity:1}
+.opp-letter{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.opp-letter::before{content:'';width:20px;height:1px;background:var(--green)}
+.opp-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:var(--t1);margin-bottom:8px;line-height:1.3}
+.opp-desc{font-size:13px;color:var(--t3);line-height:1.7}
+.opp-ref{margin-top:14px;font-size:11px;color:var(--t4);font-family:'IBM Plex Mono',monospace}
+
+/* ── COMPARE TABLE ── */
+.tbl-wrap{overflow-x:auto;margin-bottom:40px;border:1px solid var(--b1);border-radius:16px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
+thead{background:var(--s2)}
+th{text-align:left;padding:13px 16px;color:var(--t4);font-weight:600;border-bottom:1px solid var(--b1);white-space:nowrap;font-size:10px;letter-spacing:.6px;text-transform:uppercase;font-family:'IBM Plex Mono',monospace}
+td{padding:13px 16px;border-bottom:1px solid var(--b1);color:var(--t3);vertical-align:middle;font-size:12px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.015)}
+td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size:13px}
+.tyes{color:var(--green);font-weight:600}
+.tno{color:var(--t4)}
+.tmid{color:var(--amber);opacity:.8}
+.tgroup{font-size:10px;padding:3px 8px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-weight:500;white-space:nowrap}
+
+/* UNID summary row */
+.unid-row td{background:var(--gbg);border-bottom:none;border-top:1px solid var(--gborder)}.unid-row td.co-n{color:var(--green)}
+
+/* ── PARA UNID (full page) ── */
+.pu-intro{background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:36px;margin-bottom:40px;position:relative;overflow:hidden}
+.pu-intro::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(26,170,85,.08),transparent 70%);pointer-events:none}
+.pu-intro-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;color:var(--t1);margin-bottom:10px;letter-spacing:-.3px}
+.pu-intro-text{font-size:14px;color:var(--t3);line-height:1.8;max-width:700px}
+
+.robar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:48px}
+.robar-card{background:var(--s1);border:1px solid var(--b1);border-radius:18px;overflow:hidden}
+.robar-head{padding:16px 20px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:12px}
+.robar-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:14px;font-weight:800;flex-shrink:0}
+.robar-co{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--t1)}
+.robar-group{font-size:10px;color:var(--t4);font-family:'IBM Plex Mono',monospace;margin-top:1px}
+.robar-body{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.rb-steal,.rb-avoid,.rb-action{padding:12px 14px;border-radius:10px;font-size:12.5px;line-height:1.65}
+.rb-steal{background:var(--gbg);border:1px solid var(--gborder);color:var(--t2)}
+.rb-steal strong{color:var(--green);font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px}
+.rb-avoid{background:rgba(255,82,82,.06);border:1px solid rgba(255,82,82,.12);color:var(--t2);opacity:.85}
+.rb-avoid strong{color:rgba(255,82,82,.8);font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px}
+.rb-action{background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.12);color:var(--t2)}
+.rb-action strong{color:var(--amber);font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px}
+
+.tension-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:48px}
+.tension-card{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:24px}
+.tension-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap-8px}
+.tension-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);font-size:13px;color:var(--t3);line-height:1.5}
+.tension-item:last-child{border-bottom:none}
+.tension-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:7px}
+
+.decisiones{display:flex;flex-direction:column;gap:3px;margin-bottom:48px}
+.dec{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:24px 1fr;gap:14px;align-items:start;transition:border-color .2s;cursor:default}
+.dec:hover{border-color:var(--b2)}
+.dec-num{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:var(--green);padding-top:1px}
+.dec-q{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--t1);margin-bottom:5px}
+.dec-a{font-size:13px;color:var(--t3);line-height:1.65}
+.dec-src{margin-top:6px;font-size:11px;color:var(--t4);font-family:'IBM Plex Mono',monospace}
+
+/* ── MISC ── */
+.divider{border:none;border-top:1px solid var(--b1);margin:44px 0}
+.label-sm{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--t4);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:block}
+.section-title{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;color:var(--t1);margin-bottom:6px;letter-spacing:-.2px}
+.section-sub{font-size:13px;color:var(--t3);margin-bottom:24px;line-height:1.7}
+
+/* ── RESPONSIVE ── */
+@media(max-width:800px){
+  .hdr,.main{padding:28px 24px}
+  .nav{padding:0 24px}
+  .hdr{grid-template-columns:1fr}
+  .hdr h1{font-size:28px}
+  .co-grid{grid-template-columns:1fr}
+  .tension-grid{grid-template-columns:1fr}
+  .hdr-stats{flex-wrap:wrap;gap:10px}
+  .row{grid-template-columns:1fr;gap:3px}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.page.active .co-card,.page.active .syn-card,.page.active .pos-card{animation:fadeUp .3s ease both}
+.page.active .co-card:nth-child(2){animation-delay:.05s}
+.page.active .co-card:nth-child(3){animation-delay:.1s}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header class="hdr">
+  <div>
+    <div class="hdr-kicker"><div class="kicker-dot"></div><span class="kicker-text">UNID · Benchmark Competitivo · Marzo 2026</span></div>
+    <h1>Identidad Digital<br/><em>Global</em> — 10 empresas,<br/>4 grupos, 1 mapa.</h1>
+    <p class="hdr-desc">Análisis funcional y de marca de los referentes globales en identidad digital, autenticación y verificación. Incluye insights directos para la estrategia de UNID en Paraguay.</p>
+    <div class="hdr-stats">
+      <div class="stat"><div class="stat-num">10</div><div class="stat-label">Empresas analizadas</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Grupos estratégicos</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Posiciones de marca</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Opciones para UNID</div></div>
+    </div>
+  </div>
+  <div class="hdr-meta">
+    <div class="meta-item">FECHA <span class="meta-val">Marzo 2026</span></div>
+    <div class="meta-item">EQUIPO <span class="meta-val">Producto UNID</span></div>
+    <div class="meta-item">VERSIÓN <span class="meta-val">2.0</span></div>
+    <div class="meta-item">USO <span class="meta-val">Interno</span></div>
+  </div>
+</header>
+
+<!-- ════════════════ NAV ════════════════ -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="go('g1',this)"><span class="nav-dot"></span>① Espacios físicos</button>
+    <button class="nav-btn" onclick="go('g2',this)"><span class="nav-dot"></span>② Validadores</button>
+    <button class="nav-btn" onclick="go('g3',this)"><span class="nav-dot"></span>③ Motores B2B</button>
+    <button class="nav-btn" onclick="go('g4',this)"><span class="nav-dot"></span>④ Contenedores</button>
+    <button class="nav-btn" onclick="go('syn',this)"><span class="nav-dot"></span>Síntesis funcional</button>
+    <button class="nav-btn" onclick="go('marca',this)"><span class="nav-dot"></span>Síntesis de marca</button>
+    <button class="nav-btn" onclick="go('paraunid',this)"><span class="nav-dot"></span>→ Para UNID</button>
+    <button class="nav-btn" onclick="go('tabla',this)"><span class="nav-dot"></span>Tabla comparativa</button>
+  </nav>
+</div>
+
+<div class="main">
+
+<!-- ════════════ G1: ESPACIOS FÍSICOS ════════════ -->
+<div id="g1" class="page active">
+  <div class="sec-hdr">
+    <div class="sec-num">1</div>
+    <div>
+      <div class="sec-title">Eliminación de fricción en espacios físicos</div>
+      <div class="sec-sub">Identidad como pase físico. El login sucede en el mundo real — aeropuertos, estadios, fronteras. El enrollment es presencial, el beneficio es inmediato y tangible.</div>
+    </div>
+  </div>
+  <div class="co-grid">
+
+    <!-- ── CLEAR ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#0055FF;color:#fff">C</div>
+        <div class="co-info">
+          <div class="co-name">CLEAR</div>
+          <div class="co-sub">B2C + B2B1 · Aeropuertos y estadios EE.UU. · Membresía premium</div>
+        </div>
+        <span class="co-tag" style="background:#0a1a3a;color:#6688ff">Físico</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/clearme.com" alt="CLEAR" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#0055FF"></div><div class="cp" style="background:#111"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
+          <div class="co-logo-name">clearme.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/CLEAR_kiosk%2C_Orlando_International_Airport.jpg/640px-CLEAR_kiosk%2C_Orlando_International_Airport.jpg" loading="lazy"/>
+            <div class="co-screen-cap">Kiosco físico en aeropuerto</div>
+          </div>
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#fff">
+              <div style="background:#0055FF;border-radius:4px;height:11px;width:50%;margin-bottom:5px"></div>
+              <div class="m-lbl" style="color:#666;margin-bottom:6px">CLEAR+ Member</div>
+              <div style="background:#eef3ff;border:1px solid #c0d4ff;border-radius:6px;padding:5px 6px;margin-bottom:6px">
+                <div class="m-lbl" style="color:#0055FF;font-weight:700">✓ Verificado</div>
+                <div class="m-bar" style="height:4px;width:70%;margin-top:3px;background:#0055FF;opacity:.18"></div>
+              </div>
+              <div class="m-bar" style="height:5px;width:90%;margin-bottom:3px"></div>
+              <div class="m-bar" style="height:5px;width:70%;margin-bottom:auto"></div>
+              <div style="background:#0055FF;border-radius:12px;height:14px;margin-top:8px;opacity:.9"></div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'cl-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'cl-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'cl-u')">→ UNID</button>
+      </div>
+      <div id="cl-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">"Tu cara es tu credencial." Identidad biométrica que acompaña en cada momento: aeropuertos, estadios, hospitales, hoteles. Narrativa central: recuperar el tiempo que perdés en filas.</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">Membresía ($199/año) para saltear filas de seguridad usando biometría. Promesa concreta: menos tiempo esperando, más tiempo viviendo.</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Plataforma CLEAR1: SDKs para que empresas ofrezcan verificación biométrica en sus productos, físicos y digitales (LinkedIn, Uber, servicios financieros).</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Biometría dual: huella digital + iris. Facial en app móvil. Enrollment presencial en kiosco con agente "Ambassador". Una sola vez.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Carril exclusivo aeropuertos · App QR para regionales · Integración marketplaces · KYC financiero · Verificación de credenciales (edad, membresías) · Sub-marcas: CLEAR+, Mobile, Concierge, CLEAR1</div></div>
+        <div class="row"><div class="row-lbl">Dolores</div><div class="row-val">Perder tiempo en filas · Documentos olvidados o vencidos · Fraude de identidad digital</div></div>
+        <div class="row"><div class="row-lbl">Promesas clave</div><div class="quote">"Pasás la seguridad en segundos." — "Tu identidad te acompaña a donde vayas." — "Win the day."</div></div>
+        <div class="row"><div class="row-lbl">Usuarios</div><div class="row-val">Valoran ahorro de tiempo. Críticas: precio elevado, valor depende de frecuencia de viaje y ocupación del aeropuerto.</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">📋 Registro online</span><span class="step-arr">→</span><span class="step">🏢 Kiosco presencial</span><span class="step-arr">→</span><span class="step">👁 Iris + huella</span><span class="step-arr">→</span><span class="step">✅ Carril dedicado</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val hi">No. Uso diario 100% biométrico.</div></div>
+        <div class="row"><div class="row-lbl">Biometría</div><div class="row-val">Enrollment: iris + huella. Uso: escaneo en punto de acceso. Facial en app móvil.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val">Propia con marca fuerte. B2B es capa técnica sobre la marca CLEAR.</div></div>
+        <div class="row"><div class="row-lbl">B2B2C</div><div class="row-val hi">Sí. Socios ofrecen experiencia CLEAR manteniendo la marca visible.</div></div>
+      </div>
+      <div id="cl-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">"CLEAR" en dos niveles: transparencia + la acción de despejar. Es también una instrucción implícita: sos CLEAR, podés pasar. Brillante en su simpleza.</div></div>
+        <div class="row"><div class="row-lbl">Logo</div><div class="row-val">Wordmark sans-serif geométrica, mayúsculas, bold. Sistema de sub-marcas estructurado con el wordmark como ancla.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#0055FF"></div><span class="sw-name">#0055FF</span><div class="sw" style="background:#111;border-color:#aaa"></div><span class="sw-name">Negro</span></div></div>
+        <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">No es el azul corporativo conservador: activo, enérgico, visible desde lejos. Señal de producto de consumo premium, no institución burocrática.</div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">El verbo favorito es "win": win the morning, win the day. Llaman "Members" (no "usuarios") — crea pertenencia y exclusividad. Evitan términos técnicos ("verificación biométrica") y hablan en beneficios concretos.</div></div>
+        <div class="row"><div class="row-lbl">Touchpoints</div><div class="row-val">Muy fuerte en lo físico: banners azules en aeropuertos, Ambassador uniformado, kioscos. Inusual en tech — presencia repetida en momentos de alta atención del usuario.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Confiante. Premium. Accesible pero exclusiva. Ese amigo que siempre sabe el shortcut.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">Merecés más tiempo. Tu tiempo es valioso y perderlo en filas es inaceptable. CLEAR es el pase VIP donde el sistema trabaja para vos, no al revés.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val hi">Muy alta. La gente dice "tengo CLEAR" con orgullo. Brand equity real con el usuario final.</div></div>
+      </div>
+      <div id="cl-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">El modelo "Members": tratar a los usuarios como miembros, no como cuentas. UNID puede usar este lenguaje para crear sentido de pertenencia en todo el ecosistema — "con UNID sos parte".<br/><br/>La presencia física en puntos de alto tráfico y emoción. UNID tiene los estadios de Olimpia y Cerro — eso es equivalente a los aeropuertos de CLEAR. Un cartel de "Ingreso rápido con UNID" en el estadio es branding poderoso y gratuito.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">CLEAR tiene aeropuertos. UNID tiene estadios + delivery + banco. El beneficio tangible inmediato existe — falta nombrarlo y mostrarlo. La biometría en ingreso a estadios (Olimpia, Cerro) sería el equivalente exacto del carril CLEAR.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El modelo de membresía paga ($199/año). En el contexto de Paraguay, cobrar por la identidad sería una barrera enorme. La membresía de UNID tiene que ser gratuita y el valor viene de la red de apps.</div></div>
+      </div>
+    </div>
+
+    <!-- ── WICKET ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#22C55E;color:#000">W</div>
+        <div class="co-info">
+          <div class="co-name">Wicket</div>
+          <div class="co-sub">B2B2C · Estadios y venues deportivos · Facial en el punto de acceso</div>
+        </div>
+        <span class="co-tag" style="background:#0a2010;color:#44aa55">Físico</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/wicket.io" alt="Wicket" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#22C55E"></div><div class="cp" style="background:#111"></div><div class="cp" style="background:#F0FDF4;border-color:#ddd"></div></div>
+          <div class="co-logo-name">wicket.io</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Facial_recognition_-_Messe_Frankfurt.jpg/640px-Facial_recognition_-_Messe_Frankfurt.jpg" loading="lazy"/>
+            <div class="co-screen-cap">Reconocimiento facial en estadio</div>
+          </div>
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#0d1117">
+                <div class="m-lbl" style="color:#22C55E;font-weight:700;margin-bottom:5px">WICKET EXPRESS ENTRY</div>
+                <div style="display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:6px;padding:6px">
+                  <div style="width:22px;height:22px;border-radius:50%;border:1.5px solid #22C55E;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0">😊</div>
+                  <div>
+                    <div class="m-lbl" style="color:#22C55E;font-weight:700">✓ AUTENTICADO</div>
+                    <div class="m-lbl" style="color:rgba(255,255,255,.35);margin-top:1px">Gate 3 · 1.8 seg</div>
+                  </div>
+                </div>
+                <div class="m-bar" style="height:4px;width:80%;background:#22C55E;opacity:.15;margin-top:6px"></div>
+                <div class="m-bar" style="height:4px;width:55%;background:#22C55E;opacity:.1;margin-top:3px"></div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'wi-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'wi-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'wi-u')">→ UNID</button>
+      </div>
+      <div id="wi-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Nació durante la pandemia para entradas sin contacto. Hoy: "tu cara es tu ticket, tu pago, tu credencial". Foco absoluto en la fluidez de la experiencia del juego en vivo.</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">Vincular tu rostro a tickets y pago para entrar al estadio y comprar en puestos sin sacar teléfono ni billetera. Enrollment voluntario previo al evento.</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">1 carril biométrico reemplaza 4 tradicionales. Reducción de filas, ahorro en personal, seguridad en zonas restringidas. Integración con Ticketmaster.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Autenticación facial (no reconocimiento). Template cifrado comparado con rostro en vivo. No almacena imágenes reales.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Express Entry · Pago biométrico (con verificación de edad para alcohol) · Credencialing para staff, prensa y árbitros · iPad propio o hardware Axess</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Un Cleveland Browns lane reemplaza 4 filas." — "Entrás con tu cara. Pagás con tu cara. Todo en segundos."</div></div>
+        <div class="row"><div class="row-lbl">Usuarios</div><div class="row-val">Fans adoptantes lo describen como revelador. Críticas: preocupaciones sobre qué hacen los equipos con los datos una vez obtenidos.</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">📸 Selfie previo</span><span class="step-arr">→</span><span class="step">🎟 Vincular ticket</span><span class="step-arr">→</span><span class="step">😊 Scanner estadio</span><span class="step-arr">→</span><span class="step">✅ 2-3 segundos</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val hi">No en la experiencia del estadio.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val lo">Servicio secundario. El fan ve la marca del Browns, del Mets — nunca "Wicket".</div></div>
+        <div class="row"><div class="row-lbl">B2B2C</div><div class="row-val">100% B2B2C. Sin relación directa con el usuario final.</div></div>
+      </div>
+      <div id="wi-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">El arco del cricket que el bateador defiende. Referencia deportiva directa al segmento. Evoca portones, acceso, paso.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#22C55E"></div><span class="sw-name">#22C55E Verde eléctrico</span><div class="sw" style="background:#111;border-color:#aaa"></div><span class="sw-name">Negro</span></div></div>
+        <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">El verde LED de los marcadores de estadios. Tecnología + energía deportiva. No es el verde sustentable ni el verde fintech.</div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">Nunca "facial recognition", siempre "facial authentication" — elección deliberada para evitar carga negativa. Métricas B2B concretas: "1 lane replaces 4", "2-second entry".</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Sports tech startup. Técnica pero emocionante.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">Para venues: "hacé que tus fans tengan la mejor noche desde el primer segundo". Para fans: invisible.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val lo">Muy baja. Es la plomería invisible. El fan ve la marca del equipo.</div></div>
+      </div>
+      <div id="wi-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">El flujo de enrollment previo al evento: la selfie + vinculación de ticket que Wicket propone puede adaptarse perfectamente a UNID. Antes del partido de Olimpia, el fan vincula su CI + selfie y al estadio entra con la cara. Cero fricción en el momento de mayor emoción.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">UNID tiene algo que Wicket nunca tuvo: la relación preexistente con los clubes (Olimpia, Cerro, APF). Wicket tenía que convencer a cada venue desde cero. UNID puede desplegar esto desde el ecosistema existente.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El modelo de invisibilidad total. Wicket eligió ser la plomería invisible y eso lo deja sin brand equity propio. UNID tiene que ser visible en el ingreso al estadio, en la app del club, en la experiencia completa.</div></div>
+      </div>
+    </div>
+
+    <!-- ── TSA ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#1B3A6B;color:#fff">T</div>
+        <div class="co-info">
+          <div class="co-name">TSA PreCheck / Global Entry</div>
+          <div class="co-sub">Gobierno EE.UU. · Aeropuertos · Viajero conocido = viajero privilegiado</div>
+        </div>
+        <span class="co-tag" style="background:#18182a;color:#7788cc">Estado</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/TSA_logo.svg/200px-TSA_logo.svg.png" alt="TSA" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#002868"></div><div class="cp" style="background:#BF0A30"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
+          <div class="co-logo-name">tsa.dhs.gov</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/TSA_agents_at_SEA.jpg/640px-TSA_agents_at_SEA.jpg" loading="lazy"/>
+            <div class="co-screen-cap">Carril PreCheck — aeropuerto Seattle</div>
+          </div>
+          <div class="co-screen">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Automated_passport_control_kiosk_%28Seattle%29.jpg/640px-Automated_passport_control_kiosk_%28Seattle%29.jpg" loading="lazy"/>
+            <div class="co-screen-cap">Kiosco Global Entry</div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'ts-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'ts-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'ts-u')">→ UNID</button>
+      </div>
+      <div id="ts-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Precursor conceptual de toda la industria: si el estado ya te conoce y te considera de bajo riesgo, no pasás por los mismos controles. "Viajero conocido = viajero privilegiado."</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">PreCheck: carril rápido sin sacar laptop ni quitar zapatos. Global Entry: procesamiento exprés en aduana internacional.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Enrollment presencial obligatorio: fingerprints + foto + entrevista con agente + background check. Uso: facial biométrico (CAT-2) en checkpoint.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Carril dedicado sin quitar objetos · Procesamiento exprés en aduana · Touchless ID facial · Integración mDL en estados seleccionados · Global Entry incluye PreCheck</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Menos filas. Más tiempo para vos." — "Confianza ganada, viaje simplificado."</div></div>
+        <div class="row"><div class="row-lbl">Usuarios</div><div class="row-val">Muy bien valorado por viajeros frecuentes. Críticas: enrollment lento (puede tomar meses), costo ($120 Global Entry / $79.95 PreCheck por 5 años).</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">💻 Solicitud online</span><span class="step-arr">→</span><span class="step">🕐 Background check</span><span class="step-arr">→</span><span class="step">🏢 Entrevista presencial</span><span class="step-arr">→</span><span class="step">✈️ KTN + carril rápido</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val">Portal TTP con usuario/contraseña para gestionar perfil. Sin contraseña en el uso diario.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val">Propia del estado. Monopolio regulado, sin competencia directa.</div></div>
+      </div>
+      <div id="ts-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">"TSA PreCheck" descriptivo y burocrático. "Global Entry" tiene más intención: "global" + "entry" = acceso privilegiado a escala mundial.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#002868"></div><span class="sw-name">Azul federal</span><div class="sw" style="background:#BF0A30"></div><span class="sw-name">Rojo patriótico</span></div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">Formal, instructivo. "Eligible travelers", "Trusted Traveler Programs". Gubernamental: preciso, sin calidez. No hay copy emocional.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Institucional. Impersonal. Autoritativa por función, no por diseño.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">No hay narrativa emocional construida intencionalmente. La historia la cuentan las aerolíneas y las tarjetas de crédito, no el programa en sí.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val mid">Alta, pero por necesidad funcional — el usuario la conoce porque necesita el KTN, no porque la marca lo enamore.</div></div>
+      </div>
+      <div id="ts-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La promesa conceptual: "ya te conozco, podés pasar más rápido." TSA PreCheck demostró que los usuarios adoptan masivamente un sistema de identidad si el beneficio concreto es claro y recurrente. UNID puede replicar esa lógica: "ya tenés UNID, entrá directo."</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El brand equity lo construyen terceros (aerolíneas, tarjetas de crédito), no el propio programa. TSA nunca construyó su propia relación emocional con el usuario. UNID no puede darse ese lujo: necesita ser visible en su propia marca.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">El concepto "trusted traveler" traducido al ecosistema UNID: "usuario UNID verificado = acceso rápido en todas las apps del grupo". Comunicarlo así, con ese nombre o concepto, puede ser poderoso.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ G2: VALIDADORES ════════════ -->
+<div id="g2" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num">2</div>
+    <div>
+      <div class="sec-title">Validadores de identidad ante la ley</div>
+      <div class="sec-sub">KYC, verificación documental y biométrica. Motor de onboarding que opera detrás de otras marcas. El usuario los experimenta sin saber que existen.</div>
+    </div>
+  </div>
+  <div class="co-grid">
+
+    <!-- ── JUMIO ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#1B3A6B;color:#fff">J</div>
+        <div class="co-info">
+          <div class="co-name">Jumio</div>
+          <div class="co-sub">B2B2C · KYC + Re-autenticación biométrica · +1B transacciones</div>
+        </div>
+        <span class="co-tag" style="background:#2a1a08;color:#cc8833">KYC</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/jumio.com" alt="Jumio" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#1B3A6B"></div><div class="cp" style="background:#4A90E2"></div><div class="cp" style="background:#EEF2FB;border-color:#ddd"></div></div>
+          <div class="co-logo-name">jumio.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#EEF2FB">
+              <div class="m-lbl" style="color:#1B3A6B;font-weight:700;margin-bottom:5px">JUMIO KYC</div>
+              <div style="border:1.5px dashed #4A90E2;border-radius:7px;flex:1;display:flex;align-items:center;justify-content:center;margin-bottom:5px">
+                <div style="text-align:center"><div style="font-size:18px">📄</div><div class="m-lbl" style="color:#4A90E2;margin-top:2px">Escanear ID</div></div>
+              </div>
+              <div style="background:#1B3A6B;border-radius:10px;height:14px;opacity:.85"></div>
+            </div></div></div>
+          </div>
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#EEF2FB">
+              <div class="m-lbl" style="color:#1B3A6B;font-weight:700;margin-bottom:5px">LIVENESS</div>
+              <div style="width:44px;height:44px;border-radius:50%;border:2px dashed #4A90E2;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:18px">🤳</div>
+              <div class="m-lbl" style="color:#4A90E2;text-align:center;margin-bottom:5px">Detección en vivo</div>
+              <div style="background:#e8f0fe;border-left:2px solid #4A90E2;border-radius:3px;padding:3px 5px">
+                <div class="m-lbl" style="color:#4A90E2">⏱ &lt;60 seg</div>
+              </div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'ju-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'ju-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'ju-u')">→ UNID</button>
+      </div>
+      <div id="ju-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">El guardián de confianza digital para empresas. Su trabajo: que las organizaciones sepan con certeza quién es cada persona antes de darle acceso. "Onboard faster, keep fraudsters out."</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Verificación con IA para acelerar onboarding, reducir fraude y cumplir KYC/AML. +1.000M transacciones en 200+ países.</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">Invisible. El usuario interactúa con Jumio embebido en la app del cliente. Promesa: verificación en menos de 1 minuto.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Documento + selfie con liveness detection (anti-deepfake, anti-spoof). Template biométrico generado para reautenticaciones futuras.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">200+ países · Liveness anti-deepfake · Biometric re-authentication · AML screening · Jumio Identity Graph (riesgo continuo) · API + SDK iOS/Android</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Verificación completa en menos de 60 segundos." — "Onboard faster, keep fraudsters out."</div></div>
+        <div class="row"><div class="row-lbl">Usuarios</div><div class="row-val">B2B: valorado por facilidad de integración y precisión. Usuario final: reviews muy negativas — falla con documentos válidos y no hay soporte (Jumio no tiene relación con el usuario).</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">📄 Foto documento</span><span class="step-arr">→</span><span class="step">🤳 Selfie liveness</span><span class="step-arr">→</span><span class="step">🤖 IA verifica</span><span class="step-arr">→</span><span class="step">✅ &lt;60 seg</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val">No reemplaza. Capa de verificación en onboarding. La re-auth biométrica puede reemplazar passwords en logins futuros.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val lo">Servicio secundario puro. Nunca visible para el usuario final.</div></div>
+      </div>
+      <div id="ju-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">Inventado, sin significado literal. Sin aspiraciones de marca para el usuario final.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#1B3A6B"></div><span class="sw-name">#1B3A6B Azul marino</span><div class="sw" style="background:#4A90E2"></div><span class="sw-name">Azul eléctrico CTAs</span></div></div>
+        <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">Seguridad corporativa: confiable, profesional, sin frivolidad. Toda la decisión de diseño está para convencer a un CISO, no al usuario final.</div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">100% orientado al comprador B2B. Mezcla promesas de crecimiento con seguridad. Sin lenguaje para el usuario final.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Técnica, confiable, invisible. Su reputación en B2B es la marca, no su presencia visual.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">Para el comprador B2B: "te ayudamos a decir sí a más clientes sin asumir más riesgo." Doble beneficio: más ingresos + más seguridad.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val lo">Nula, intencionalmente. El usuario ve la marca de la empresa con la que interactúa.</div></div>
+      </div>
+      <div id="ju-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La "biometric re-authentication": verificás una vez con documento completo y para los logins futuros solo necesitás el selfie. UNID puede adoptar esta lógica — después del onboarding inicial, el video selfie ya no debería ser necesario en cada acceso.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La invisibilidad total. Jumio puede permitirse ser invisible porque vende a empresas que pagan bien. UNID necesita que el usuario sepa que es UNID quien lo está verificando — esa es la base del brand equity.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">El modelo de Jumio como proveedor de KYC es técnicamente lo que itti USA provee hoy a UNID. La diferencia estratégica es que UNID tiene marca propia con el usuario — algo que Jumio jamás tuvo y nunca podrá tener.</div></div>
+      </div>
+    </div>
+
+    <!-- ── SUMSUB ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#00D68F;color:#000">S</div>
+        <div class="co-info">
+          <div class="co-name">Sumsub</div>
+          <div class="co-sub">B2B2C · KYC full-cycle + Ongoing monitoring · +4.000 clientes</div>
+        </div>
+        <span class="co-tag" style="background:#0a2a18;color:#44bb77">KYC</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/sumsub.com" alt="Sumsub" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#00D68F"></div><div class="cp" style="background:#1A1A2E"></div><div class="cp" style="background:#E6FFF7;border-color:#ddd"></div></div>
+          <div class="co-logo-name">sumsub.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#fff">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                  <div class="m-lbl" style="color:#00a872;font-weight:700">SUMSUB KYC</div>
+                  <div class="m-tag" style="background:#e6fff7;color:#00a872">EN VIVO</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
+                  <div style="background:#e6fff7;border-radius:5px;padding:5px;text-align:center"><div class="m-lbl" style="color:#00a872">✓ Documento</div></div>
+                  <div style="background:#e6fff7;border-radius:5px;padding:5px;text-align:center"><div class="m-lbl" style="color:#00a872">✓ Selfie</div></div>
+                  <div style="background:#e6fff7;border-radius:5px;padding:5px;text-align:center"><div class="m-lbl" style="color:#00a872">✓ AML</div></div>
+                  <div style="background:#00D68F;border-radius:5px;padding:5px;text-align:center"><div class="m-lbl" style="color:#fff;font-weight:700">✓ Aprobado</div></div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#1A1A2E">
+                <div class="m-tag" style="background:rgba(0,214,143,.15);color:#00D68F;margin-bottom:6px">REUSABLE ID · 2025</div>
+                <div style="background:rgba(0,214,143,.07);border:1px solid rgba(0,214,143,.25);border-radius:6px;padding:7px;margin-bottom:5px">
+                  <div class="m-lbl" style="color:rgba(0,214,143,.8);line-height:1.7">Verificá 1 vez →<br/>usá en N apps</div>
+                </div>
+                <div class="m-bar" style="height:4px;width:75%;background:#00D68F;opacity:.2;margin-bottom:3px"></div>
+                <div class="m-bar" style="height:4px;width:50%;background:#00D68F;opacity:.12"></div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'su-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'su-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'su-u')">→ UNID</button>
+      </div>
+      <div id="su-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Plataforma de verificación de ciclo completo: no solo verifica al entrar, sino que monitorea durante toda la vida del cliente. "Secure the whole user journey."</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Full-cycle de KYC, KYB, monitoreo de transacciones y fraude. +4.000 clientes en fintech, cripto, gaming, transporte. Primer proveedor con certificación GDIC.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Documento + selfie + liveness. Video Identification para alto riesgo. Sin documento en 10+ países. Open Banking en 29 países europeos. Monitoreo continuo.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">KYC + KYB en un dashboard · <strong>Identidad reutilizable (2025)</strong> · Video Identification · AML ongoing · Orchestration sin código</div></div>
+        <div class="row"><div class="row-lbl">Dolores</div><div class="row-val">Fragmentación de tools · Deepfakes en alza (+245% YoY) · Costos de revisión manual · Regulaciones en múltiples jurisdicciones</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Una plataforma para todo el journey del usuario." — "Verificación en 2–3 min vs. horas en revisión manual."</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">📄 Documento</span><span class="step-arr">→</span><span class="step">🤳 Selfie</span><span class="step-arr">→</span><span class="step">📹 Video (opcional)</span><span class="step-arr">→</span><span class="step">✅ 2–3 min</span></div></div>
+        <div class="row"><div class="row-lbl">ID Reutilizable</div><div class="row-val hi">Lanzado 2025. Verificás una vez, usás en múltiples servicios. Conceptualmente lo que UNID ya hace hoy.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val lo">Servicio secundario. Invisible para el usuario final.</div></div>
+      </div>
+      <div id="su-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">"Sum and Substance" (suma y sustancia): la identidad es la suma de todo lo que sos. Nombre técnico con pretensiones filosóficas.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#00D68F"></div><span class="sw-name">#00D68F Verde brillante</span></div></div>
+        <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">Diferenciador crítico en un espacio donde todos van al azul. El verde de Sumsub es una ventaja real: hace ruido visual en conferencias, materiales y UIs.</div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">Más marketero que Jumio. Tono de startup con calidez. Reporte anual de fraude como activo de thought leadership.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Startup ambiciosa con aspiraciones de plataforma. Más moderna y menos corporativa que Jumio o Entrust.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">"El compliance no tiene que frenar tu negocio." Convierte una obligación regulatoria en ventaja competitiva.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val lo">Nula para usuario final. Presencia B2B más sólida que la mayoría.</div></div>
+      </div>
+      <div id="su-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">Sumsub lanzó en 2025 su "identidad digital reutilizable" con exactamente el mismo pitch que UNID debería tener: verificás una vez, usás en múltiples servicios. UNID tiene esto como core desde el día 1 — hay que comunicarlo con esa claridad y esa contundencia.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">La diferenciación de color de Sumsub (verde en un mar de azules) es exactamente lo que UNID ya tiene con #2CC76B. En Paraguay, el verde UNID puede ser tan reconocible como el naranja de Auth0 o el verde de Sumsub. Consistencia de color = brand equity gratis.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La invisibilidad frente al usuario final. El producto de Sumsub es técnicamente muy sólido pero el usuario nunca sabe que lo usó.</div></div>
+      </div>
+    </div>
+
+    <!-- ── AIRSIDE ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#00457C;color:#fff">A</div>
+        <div class="co-info">
+          <div class="co-name">Airside (Entrust)</div>
+          <div class="co-sub">B2C + B2B · Digital ID Wallet · Privacy first · Caso más parecido a UNID</div>
+        </div>
+        <span class="co-tag" style="background:#0a1828;color:#4488cc">Wallet</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/airside.io" alt="Airside" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#00457C"></div><div class="cp" style="background:#00BFCF"></div><div class="cp" style="background:#F0F9FF;border-color:#ddd"></div></div>
+          <div class="co-logo-name">airside.io</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#F0F9FF">
+              <div style="text-align:center;margin-bottom:4px;font-size:16px">🛂</div>
+              <div class="m-lbl" style="color:#00457C;font-weight:700;text-align:center;margin-bottom:5px">DIGITAL ID</div>
+              <div style="background:#fff;border:1px solid rgba(0,69,124,.14);border-radius:6px;padding:4px 6px;margin-bottom:3px">
+                <div class="m-lbl" style="color:#555">🛂 Pasaporte</div>
+                <div class="m-tag" style="background:#e0f7ff;color:#00BFCF;margin-top:2px">Verificado ✓</div>
+              </div>
+              <div style="background:#fff;border:1px solid rgba(0,69,124,.14);border-radius:6px;padding:4px 6px">
+                <div class="m-lbl" style="color:#555">🪪 Licencia</div>
+                <div class="m-tag" style="background:#e0f7ff;color:#00BFCF;margin-top:2px">Verificado ✓</div>
+              </div>
+            </div></div></div>
+          </div>
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#F0F9FF">
+              <div class="m-lbl" style="color:#00457C;font-weight:700;margin-bottom:5px">APPS CONECTADAS</div>
+              <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:5px">
+                <div style="background:#fff;border:1px solid rgba(0,191,207,.3);border-radius:5px;padding:4px 6px;display:flex;justify-content:space-between">
+                  <div class="m-lbl" style="color:#333">✈️ Alaska Air</div>
+                  <div class="m-lbl" style="color:#00BFCF;font-weight:700">ON</div>
+                </div>
+                <div style="background:#fff;border:1px solid rgba(0,191,207,.3);border-radius:5px;padding:4px 6px;display:flex;justify-content:space-between">
+                  <div class="m-lbl" style="color:#333">💼 LinkedIn</div>
+                  <div class="m-lbl" style="color:#00BFCF;font-weight:700">ON</div>
+                </div>
+              </div>
+              <div class="m-lbl" style="color:#aaa;font-size:7px">Vos controlás quién ve tus datos</div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'ai-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'ai-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'ai-u')">→ UNID</button>
+      </div>
+      <div id="ai-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Filosofía radical: "tu identidad te pertenece." Verificás una vez y controlás vos mismo con quién compartís tus datos, cuándo y por cuánto tiempo.</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">App que almacena pasaporte o licencia verificada. Una vez verificado: skip lines en aeropuertos, check-in de aerolíneas, verificación de edad. El usuario controla el acceso y puede revocar en cualquier momento.</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Las empresas solicitan datos verificados sin tener que almacenarlos, reduciendo su exposición legal y costos de compliance.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Selfie + NFC del chip del pasaporte (o cámara para licencia). Liveness detection. Certificación IAL2 (NIST SP 800-63-3). Una sola vez.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Digital ID wallet · Check-in sin documentos físicos (Alaska Airlines, etc.) · "Not a Bot" para LinkedIn y X · Sin base de datos central de PII — los datos viven en el dispositivo</div></div>
+        <div class="row"><div class="row-lbl">Dolores</div><div class="row-val">Verificarse desde cero en cada servicio · Preocupación por quién almacena los datos · Perder o tener vencidos documentos físicos</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Verificate una vez. Compartí en tus términos." — "Privacy first. Human always." — "5 segundos." (Condé Nast Traveler)</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">📱 App Airside</span><span class="step-arr">→</span><span class="step">🛂 NFC pasaporte</span><span class="step-arr">→</span><span class="step">🤳 Selfie liveness</span><span class="step-arr">→</span><span class="step">🔐 ID lista</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val hi">No. PIN o biometría del dispositivo.</div></div>
+        <div class="row"><div class="row-lbl">Perfil</div><div class="row-val hi">Sí — corazón de la app. El usuario ve exactamente qué datos tiene, con quién los compartió y puede revocar.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val hi">Propia con marca fuerte orientada al usuario final.</div></div>
+      </div>
+      <div id="ai-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">"Airside" = el área del aeropuerto después de pasar seguridad. Metáfora de haber superado la verificación, de estar "del otro lado".</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#00457C"></div><span class="sw-name">Azul profundo</span><div class="sw" style="background:#00BFCF"></div><span class="sw-name">Cian acento</span></div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">La más filosófica y orientada a valores del benchmark. No venden features: venden una posición ética. "Your identity belongs to you." "You decide who sees what, and when." Contraste total con Jumio y Sumsub que hablan de conversion rates.</div></div>
+        <div class="row"><div class="row-lbl">Fotografía</div><div class="row-val">Personas en aeropuertos, luminosas, tranquilas. Aspiracional. Mucho uso del blanco y espacios abiertos: levedad y libertad.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Ética. Principista. Centrada en el humano. Como un producto diseñado por alguien que genuinamente cree que la privacidad importa.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">"En un mundo donde todos te piden confiar en ellos con tus datos, Airside te da el control de vuelta." Única marca del benchmark que construye sobre la desconfianza hacia el sistema como estado inicial del usuario.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val hi">Media-alta. El usuario que usa Airside sabe que está usando Airside. Relación directa.</div></div>
+      </div>
+      <div id="ai-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text"><strong>Todo el marco de privacidad.</strong> "Tu identidad te pertenece" es exactamente la posición que UNID podría ocupar en Paraguay — y nadie más la está tomando. El hecho de que el usuario pueda ver con qué apps está conectado y desconectarse es una feature de producto y un mensaje de marca simultáneamente.<br/><br/>La postura de "no tenemos base de datos central de PII" es poderosa. Si UNID puede hacer algo equivalente (aunque sea en comunicación), construye una confianza que ningún otro jugador local puede replicar.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">Airside intentó construir partnerships con aerolíneas desde cero. UNID ya tiene los partnerships (ueno, Monchis, Olimpia). La arquitectura de "identidad que el usuario controla" puede desplegarse sobre la base existente sin depender de que nuevos partners se sumen.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">Airside tuvo que adquirir su propio canal de distribución (aerolíneas). Su debilidad fue que el ecosistema de partners creció lento. UNID tiene el ecosistema — el riesgo opuesto es no construir la capa de marca encima.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ G3: MOTORES B2B ════════════ -->
+<div id="g3" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num">3</div>
+    <div>
+      <div class="sec-title">Motores técnicos B2B</div>
+      <div class="sec-sub">Infraestructura de identidad que otras empresas integran. Invisibles para el usuario final por diseño. El valor está en la red de integraciones, no en la relación con el usuario.</div>
+    </div>
+  </div>
+  <div class="co-grid">
+
+    <!-- ── OKTA/AUTH0 ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#FF6600;color:#fff">O</div>
+        <div class="co-info">
+          <div class="co-name">Okta / Auth0</div>
+          <div class="co-sub">B2B → B2C · CIAM + SSO · Developer-first · +19.000 integraciones</div>
+        </div>
+        <span class="co-tag" style="background:#2a1808;color:#cc7722">Motor B2B</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap" style="background:#003049"><img src="https://logo.clearbit.com/okta.com" alt="Okta" loading="lazy" style="filter:brightness(10)"/></div>
+          <div class="co-palette"><div class="cp" style="background:#003049"></div><div class="cp" style="background:#FF6600"></div><div class="cp" style="background:#F7F8FA;border-color:#ddd"></div></div>
+          <div class="co-logo-name">okta.com · auth0.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#f7f8fa">
+                <div style="background:#fff;border-radius:8px;border:1px solid #e8e9eb;padding:10px;box-shadow:0 1px 6px rgba(0,0,0,.06)">
+                  <div class="m-lbl" style="color:#FF6600;font-weight:700;text-align:center;margin-bottom:6px">Auth0</div>
+                  <div style="background:#f3f4f6;border-radius:4px;height:13px;margin-bottom:3px"></div>
+                  <div style="background:#f3f4f6;border-radius:4px;height:13px;margin-bottom:6px"></div>
+                  <div style="background:#FF6600;border-radius:16px;height:15px;opacity:.9"></div>
+                  <div class="m-lbl" style="color:#888;text-align:center;margin-top:4px">Universal Login</div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#edf0f5">
+                <div class="m-lbl" style="color:#003049;font-weight:700;margin-bottom:6px">OKTA DASHBOARD</div>
+                <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px">
+                  <div class="m-tag" style="background:#003049;color:#fff">SSO</div>
+                  <div class="m-tag" style="background:#003049;color:#fff">MFA</div>
+                  <div class="m-tag" style="background:#003049;color:#fff">PASSKEYS</div>
+                </div>
+                <div class="m-bar" style="height:5px;width:85%;background:#003049;opacity:.1;margin-bottom:3px"></div>
+                <div class="m-bar" style="height:5px;width:65%;background:#003049;opacity:.08;margin-bottom:5px"></div>
+                <div class="m-lbl" style="color:#888">+19.000 integraciones</div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'ok-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'ok-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'ok-u')">→ UNID</button>
+      </div>
+      <div id="ok-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">"Identity is the new perimeter." (Okta) — "Stop building auth, start building your app." (Auth0) Para developers que no quieren gastar tiempo en autenticación.</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">CIAM para gestionar acceso de clientes: SSO, MFA, login social, passwordless, autorización granular. +19.000 integraciones.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Contraseña, social login, passwordless (magic links, passkeys), MFA (SMS, authenticator, WebAuthn). Adaptive MFA: solo pide segundo factor cuando detecta riesgo.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Universal Login brandeable · SSO · Adaptive MFA · Passkeys + biometría del dispositivo · Bot detection · Fine-grained authorization · Actions (código custom en el flujo)</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"SSO permite logins hasta 50% más rápidos." — "De meses de desarrollo a días de integración." — "Docs so good you'll actually read them."</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">🏢 App redirige</span><span class="step-arr">→</span><span class="step">💻 Universal Login</span><span class="step-arr">→</span><span class="step">🔐 Auth method</span><span class="step-arr">→</span><span class="step">↩ Redirect a app</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val">Soporta todos los métodos. Recomendación actual: passwordless + passkeys.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val lo">Servicio técnico puro. Invisible para el usuario final.</div></div>
+      </div>
+      <div id="ok-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombres</div><div class="row-val">Okta: prefijo del sistema octal. Auth0: "Auth" + "0" (OAuth) — un nombre que es casi una credencial técnica en sí mismo.</div></div>
+        <div class="row"><div class="row-lbl">Color Okta</div><div class="swatches"><div class="sw" style="background:#003049"></div><span class="sw-name">#003049 Azul oscuro</span></div></div>
+        <div class="row"><div class="row-lbl">Color Auth0</div><div class="swatches"><div class="sw" style="background:#FF6600"></div><span class="sw-name">#FF6600 Naranja</span></div></div>
+        <div class="row"><div class="row-lbl">Voz Okta</div><div class="row-val">Formal, orientado a CISO y IT. "Secure access. Anywhere." "Zero Trust." "Identity is the new perimeter."</div></div>
+        <div class="row"><div class="row-lbl">Voz Auth0</div><div class="row-val">Cálido, developer-first. Tiene humor sutil. "Stop building auth." Respeta el tiempo del developer.</div></div>
+        <div class="row"><div class="row-lbl">Personalidades</div><div class="row-val">Okta: el banco suizo de la identidad digital. Auth0: el amigo que sabe de seguridad y te lo explica en lenguaje humano.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">Okta: los CISOs pueden dormir tranquilos. Auth0: los developers pueden enfocarse en lo que importa.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val mid">Variable. Universal Login completamente brandeable. Badge "powered by Auth0" es opcional.</div></div>
+      </div>
+      <div id="ok-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La dualidad de audiencias con dos identidades de marca distintas. Okta habla a CISOs; Auth0 habla a developers. UNID tiene el mismo desafío exacto: una marca para el usuario final (Paraguay que usa apps) y un lenguaje completamente distinto para empresas que quieran integrar UNID como capa de identidad.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">El "Universal Login" brandeable de Auth0 es lo que UNID debería ofrecer a sus empresas socias: cada partner puede customizar la pantalla de login de UNID con su propia marca, manteniendo el "powered by UNID" visible. Así el usuario aprende que UNID está detrás de muchas apps.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El modelo puramente B2B sin relación directa con el usuario final. Okta/Auth0 son técnicamente brillantes pero no construyeron loyalty con el usuario — si las empresas migran de proveedor, Okta desaparece de la vida del usuario.</div></div>
+      </div>
+    </div>
+
+    <!-- ── ENTRUST ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#C8102E;color:#fff">E</div>
+        <div class="co-info">
+          <div class="co-name">Entrust</div>
+          <div class="co-sub">B2B · PKI + Identidad gubernamental · Suite completa · Adquirió Onfido + Airside</div>
+        </div>
+        <span class="co-tag" style="background:#2a0808;color:#cc4444">Motor B2B</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/entrust.com" alt="Entrust" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#003087"></div><div class="cp" style="background:#C8102E"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
+          <div class="co-logo-name">entrust.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Biometric_passport.jpg/640px-Biometric_passport.jpg" loading="lazy"/>
+            <div class="co-screen-cap">Documentos de identidad para gobiernos</div>
+          </div>
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#eef2f8">
+                <div class="m-lbl" style="color:#003087;font-weight:700;margin-bottom:6px">PORTFOLIO COMPLETO</div>
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <div style="background:#fff;border-left:2.5px solid #C8102E;padding:4px 7px;border-radius:2px"><div class="m-lbl" style="color:#003087">PKI + Certificados</div></div>
+                  <div style="background:#fff;border-left:2.5px solid #C8102E;padding:4px 7px;border-radius:2px"><div class="m-lbl" style="color:#003087">KYC Biométrico (Onfido)</div></div>
+                  <div style="background:#fff;border-left:2.5px solid #C8102E;padding:4px 7px;border-radius:2px"><div class="m-lbl" style="color:#003087">Wallet Digital (Airside)</div></div>
+                  <div style="background:#fff;border-left:2.5px solid #C8102E;padding:4px 7px;border-radius:2px"><div class="m-lbl" style="color:#003087">Docs gobierno</div></div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'en-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'en-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'en-u')">→ UNID</button>
+      </div>
+      <div id="en-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Décadas en certificados digitales y PKI. Hoy: plataforma más completa de identidad digital end-to-end. "Digital trust for a demanding world." Adquirió Onfido (KYC biométrico) y Airside (wallet de identidad).</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Suite completa: certificados digitales, credenciales físicas seguras (pasaportes, licencias nacionales), IAM, verificación biométrica (Onfido) e identity wallets (Airside).</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Documento + selfie (Onfido). Certificados digitales. PKI. Liveness detection. 195+ países.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Verificación biométrica (Onfido) · Digital identity wallet (Airside) · PKI y certificados · IAM workforce y customers · Documentos físicos seguros para gobiernos · Google partnership para IA</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Digital trust for a demanding world." — Del documento físico al wallet digital: el portafolio más completo.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val lo">Propia en B2B/gubernamental. Para el usuario final: completamente invisible. Opera en pasaportes y certificados SSL que usamos a diario sin saberlo.</div></div>
+      </div>
+      <div id="en-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">"To entrust" (confiar algo a alguien). Lleva décadas en el mercado. Equity real en el mundo enterprise y gubernamental.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#003087"></div><span class="sw-name">Azul marino</span><div class="sw" style="background:#C8102E"></div><span class="sw-name">Rojo oscuro</span></div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">Institucional. "Digital trust for a demanding world." Lenguaje de PKI, IAM, certificate lifecycle management. No para usuarios finales.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">La institución de confianza. Como una firma de abogados de primer nivel: no seduce, acredita.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">"Llevamos décadas protegiendo lo más crítico del mundo digital." Narrativa de reputación acumulada, no de innovación.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val lo">Muy baja. El usuario nunca ve la marca Entrust aunque usa sus productos todos los días.</div></div>
+      </div>
+      <div id="en-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">La visión de portafolio completo: Entrust compró Onfido (KYC) + Airside (wallet) para tener la cadena completa desde el documento físico hasta el wallet digital. UNID puede contar esa misma historia a escala local: desde la CI paraguaya hasta la identidad digital en todas las apps.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">La narrativa de "del documento físico al wallet digital" es exactamente el arco de UNID hacia 2027. CI → UNID hoy. UNID → wallet con documentos del Estado en 2027. Es la misma historia que Entrust, contada desde Paraguay y para paraguayos.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">El lenguaje de PKI y enterprise que hace que nadie entienda qué hace Entrust. UNID tiene la oportunidad de contar una historia de identidad compleja en lenguaje humano.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ G4: CONTENEDORES ════════════ -->
+<div id="g4" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num">4</div>
+    <div>
+      <div class="sec-title">Contenedor universal de credenciales</div>
+      <div class="sec-sub">Una cuenta para todo internet. Identidad propia con escala masiva, brand equity máximo y efecto red que hace que cada nuevo partner suba el valor de todos los anteriores.</div>
+    </div>
+  </div>
+  <div class="co-grid">
+
+    <!-- ── APPLE ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#f0f0eb;border:1px solid var(--b1);font-size:22px;color:#111">🍎</div>
+        <div class="co-info">
+          <div class="co-name">Apple</div>
+          <div class="co-sub">B2C + IdP · Ecosistema iOS · Privacy by design · Face ID / Passkeys</div>
+        </div>
+        <span class="co-tag" style="background:#1a1a1a;color:#666">Contenedor</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap" style="background:#000"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" loading="lazy" style="filter:invert(1);padding:13px"/></div>
+          <div class="co-palette"><div class="cp" style="background:#111;border-color:#aaa"></div><div class="cp" style="background:#f5f5f7;border-color:#ddd"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
+          <div class="co-logo-name">apple.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/IPhone_14_Pro_%22Dynamic_Island%22.jpg/400px-IPhone_14_Pro_%22Dynamic_Island%22.jpg" loading="lazy"/>
+            <div class="co-screen-cap">Face ID — tu cara es tu contraseña</div>
+          </div>
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#f5f5f7">
+              <div style="font-size:14px;text-align:center;margin-bottom:4px">🍎</div>
+              <div style="background:#fff;border-radius:8px;padding:7px;box-shadow:0 1px 5px rgba(0,0,0,.09);margin-bottom:5px">
+                <div class="m-lbl" style="color:#555;text-align:center;margin-bottom:5px">Iniciar sesión con Apple</div>
+                <div style="display:flex;gap:3px;margin-bottom:5px">
+                  <div style="flex:1;background:#f0f0f0;border-radius:3px;height:11px"></div>
+                  <div style="flex:1;background:#f0f0f0;border-radius:3px;height:11px"></div>
+                </div>
+                <div style="background:#111;border-radius:12px;height:13px;opacity:.9"></div>
+              </div>
+              <div class="m-lbl" style="color:#888;text-align:center;font-size:7px">Tu email está protegido ✓</div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'ap-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'ap-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'ap-u')">→ UNID</button>
+      </div>
+      <div id="ap-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">La identidad es un feature del dispositivo. "Lo que pasa en tu iPhone, se queda en tu iPhone." Identidad construida desde adentro hacia afuera: primero el dispositivo, luego el OS, luego los servicios.</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">Un ID para todo el ecosistema Apple. Wallet con tarjetas, tickets, llaves de auto, mDL (Mobile Driver's License). Passkeys para login en apps de terceros sin contraseña.</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Sign in with Apple (login social sin exponer el email). Passkeys API. Wallet API para credenciales de terceros.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Face ID / Touch ID. PIN del dispositivo como fallback. 2FA con SMS o dispositivo de confianza. No hace KYC.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Sign in with Apple (email enmascarado opcional) · Passkeys sincronizados por iCloud · Apple Wallet · Hide My Email · iCloud Keychain</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"What happens on your iPhone, stays on your iPhone." — "Privacy is a fundamental human right." — "La forma más fácil y privada de iniciar sesión."</div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val hi">No. Passkeys — credenciales biométricas que no pueden ser phisheadas.</div></div>
+        <div class="row"><div class="row-lbl">Perfil</div><div class="row-val">Apple ID con control granular: qué apps acceden a qué datos, métodos de pago, dispositivos vinculados.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val hi">Propia dominante dentro del ecosistema. Para terceros: proveedor de identidad (IdP).</div></div>
+      </div>
+      <div id="ap-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Logo</div><div class="row-val">El objeto más reconocido del mundo. La manzana mordida no tiene relación directa con tecnología: es un símbolo puro. No necesita explicación.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#111;border-color:#aaa"></div><span class="sw-name">Negro</span><div class="sw" style="background:#f5f5f0;border-color:#ccc"></div><span class="sw-name">Blanco</span></div></div>
+        <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">El fondo blanco de Apple es un statement: no necesitamos colores para llamar la atención. Confianza de marca en su nivel más alto.</div></div>
+        <div class="row"><div class="row-lbl">Tipografía</div><div class="row-val">San Francisco: fuente custom de Apple. Perfección funcional, no personalidad decorativa.</div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">Declarativo y moral. No argumenta beneficios: declara principios. "Privacy is a fundamental human right." Sin adornos ni superlatividad vacía.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">"Tu información es tuya. Siempre." Construyó su posición de privacidad cuando Google y Facebook construían negocios sobre datos de usuarios. Esa posición ética se convirtió en ventaja comercial.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val hi">Máxima. "Sign in with Apple" es una decisión de confianza que el usuario toma conscientemente.</div></div>
+      </div>
+      <div id="ap-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">El copy declarativo y moral. Apple no dice "nuestra plataforma tiene privacidad avanzada" — dice "privacy is a fundamental human right." UNID puede hablar de identidad digital con ese mismo nivel de convicción: "tu CI digital es tuya. Siempre."<br/><br/>La idea del botón de login como activo de conversión. El "Iniciar sesión con Apple" es tan reconocido que genera confianza refleja. El "Ingresá con UNID" puede construir eso en Paraguay si la marca es consistente y el producto funciona bien.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">UNID debería tener un botón de login propio ("Ingresá con UNID") que aparezca en todas las apps del grupo con el mismo diseño, el mismo verde, el mismo nivel de confianza. Eso es construir brand equity sin gastar en publicidad.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La dependencia del ecosistema cerrado. Apple funciona porque casi todo pasa por iOS. UNID tiene que funcionar en cualquier dispositivo y cualquier app del ecosistema paraguayo.</div></div>
+      </div>
+    </div>
+
+    <!-- ── GOOGLE ── -->
+    <div class="co-card">
+      <div class="co-head">
+        <div class="co-icon" style="background:#4285F4;color:#fff">G</div>
+        <div class="co-info">
+          <div class="co-name">Google</div>
+          <div class="co-sub">B2C + IdP · 3B+ usuarios activos · Ubicuidad como moat · Sign in with Google</div>
+        </div>
+        <span class="co-tag" style="background:#0a1028;color:#5577cc">Contenedor</span>
+      </div>
+            <div class="co-visual">
+        <div class="co-logo-panel">
+          <div class="co-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/320px-Google_2015_logo.svg.png" alt="Google" loading="lazy"/></div>
+          <div class="co-palette"><div class="cp" style="background:#4285F4"></div><div class="cp" style="background:#DB4437"></div><div class="cp" style="background:#F4B400"></div><div class="cp" style="background:#0F9D58"></div></div>
+          <div class="co-logo-name">google.com</div>
+        </div>
+        <div class="co-screens">
+          <div class="co-screen">
+            <div class="bf"><div class="bf-body">
+              <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
+              <div class="bf-content" style="background:#fff">
+                <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/64px-Google_%22G%22_logo.svg.png" style="height:14px;width:auto" alt="G"/>
+                  <div class="m-lbl" style="color:#3c4043;font-weight:500">Continuar con Google</div>
+                </div>
+                <div style="background:#f8f9fa;border-radius:4px;height:12px;margin-bottom:3px"></div>
+                <div style="background:#f8f9fa;border-radius:4px;height:12px;margin-bottom:6px"></div>
+                <div style="background:#4285F4;border-radius:14px;height:15px;opacity:.9"></div>
+                <div class="m-lbl" style="color:#888;text-align:center;margin-top:4px">One Tap — 1 gesto</div>
+              </div>
+            </div></div>
+          </div>
+          <div class="co-screen">
+            <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:#f8faff">
+              <div class="m-lbl" style="color:#3c4043;font-weight:700;margin-bottom:5px">Google Wallet</div>
+              <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:5px">
+                <div style="background:linear-gradient(135deg,#4285F4,#0F9D58);border-radius:5px;height:22px;display:flex;align-items:center;padding:0 7px"><div class="m-lbl" style="color:#fff">💳 Visa ···4242</div></div>
+                <div style="background:linear-gradient(135deg,#DB4437,#F4B400);border-radius:5px;height:22px;display:flex;align-items:center;padding:0 7px"><div class="m-lbl" style="color:#fff">🔑 Passkey activo</div></div>
+              </div>
+              <div class="m-lbl" style="color:#888;font-size:7px">3B+ usuarios · sin contraseña</div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+<div class="co-tabs">
+        <button class="co-tab active" onclick="tab(this,'go-f')">Funcional</button>
+        <button class="co-tab" onclick="tab(this,'go-m')">Marca</button>
+        <button class="co-tab unid-tab" onclick="tab(this,'go-u')">→ UNID</button>
+      </div>
+      <div id="go-f" class="co-panel active">
+        <div class="row"><div class="row-lbl">Historia</div><div class="row-val">Identidad construida desde los servicios hacia el dispositivo: Gmail → Google Account → Android. "Una cuenta para todo internet." +3.000M cuentas activas.</div></div>
+        <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">Una cuenta para Gmail, YouTube, Maps, Google Pay, Drive, Android y miles de apps de terceros. Wallet con tarjetas, tickets, mDL, llaves, loyalty cards.</div></div>
+        <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">Sign in with Google como IdP (OAuth 2.0 / OpenID Connect). Google Identity Services API. Partnership con Entrust para IA en verificación y fraude.</div></div>
+        <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">Contraseña + 2FA (SMS, authenticator, Google Prompt). Passkeys biométricos. Biometría del dispositivo para autenticación local.</div></div>
+        <div class="row"><div class="row-lbl">Features</div><div class="row-val">Sign in with Google (el más usado del mundo) · Passkeys sincronizados · Google Wallet · Password Manager · One Tap (1 solo gesto) · Advanced Protection Program</div></div>
+        <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"Una cuenta. Todo Google. Todo internet." — "Passkeys: la forma de inicio de sesión más fácil y segura."</div></div>
+        <div class="row"><div class="row-lbl">Flujo</div><div class="steps"><span class="step">🔵 Botón Google</span><span class="step-arr">→</span><span class="step">👤 Cuenta detectada</span><span class="step-arr">→</span><span class="step">1️⃣ Un tap</span><span class="step-arr">→</span><span class="step">✅ Acceso</span></div></div>
+        <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val hi">No como método primario. Passkeys es el futuro. Contraseña existe como fallback.</div></div>
+        <div class="row"><div class="row-lbl">Identidad</div><div class="row-val hi">Propia dominante a nivel global. El IdP más usado en internet.</div></div>
+      </div>
+      <div id="go-m" class="co-panel">
+        <div class="row"><div class="row-lbl">Logo</div><div class="row-val">"Google" = deformación de "googol" (10^100). El logo en cuatro colores declara diversidad: no hay un solo color porque Google es para todos.</div></div>
+        <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:#4285F4"></div><span class="sw-name">#4285F4</span><div class="sw" style="background:#DB4437"></div><span class="sw-name">Rojo</span><div class="sw" style="background:#F4B400"></div><span class="sw-name">Amarillo</span><div class="sw" style="background:#0F9D58"></div><span class="sw-name">Verde</span></div></div>
+        <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">El azul #4285F4 en el botón "Sign in with Google" es uno de los más reconocidos de internet. La consistencia del color en todos los contextos es brand equity acumulado.</div></div>
+        <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">"One account. All of Google." "Sign in with Google" quizás el CTA más ejecutado del mundo. Funcional y universal.</div></div>
+        <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">Universal. Accesible. El sistema operativo de internet.</div></div>
+        <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">"Todo lo que hacés online vive mejor con Google." Conveniencia total. Contraparte: tu vida entera pasa por Google — el tema de privacidad que la marca gestiona con dificultad.</div></div>
+        <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val hi">Máxima. El botón genera confianza refleja basada en familiaridad pura.</div></div>
+      </div>
+      <div id="go-u" class="unid-panel">
+        <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text"><strong>El efecto red de la identidad de marca.</strong> Cuantos más lugares tienen el botón de "Sign in with Google", más valioso se vuelve cada botón individual. UNID necesita pensar desde ahora en el "Ingresá con UNID" como un botón que aparece en todas las apps del grupo con el mismo diseño y el mismo nivel de confianza.<br/><br/>Google One Tap: la idea de detectar la cuenta existente y ofrecer login en un solo toque es perfectamente aplicable al flow de UNID para usuarios que ya tienen cuenta.</div></div>
+        <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">La lógica de "una cuenta, todo el ecosistema" es la propuesta central de UNID. Google lo demostró a escala global. UNID puede demostrarlo en el ecosistema paraguayo con una ventaja que Google no tiene: los datos son locales, la CI es paraguaya, y el sistema no depende de Big Tech.</div></div>
+        <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">La dependencia de datos para publicidad que erosiona la confianza de privacidad. UNID tiene la oportunidad de ser el "Google sin el lado oscuro" para el mercado paraguayo.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ SÍNTESIS FUNCIONAL ════════════ -->
+<div id="syn" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num inv">→</div>
+    <div>
+      <div class="sec-title">Síntesis funcional — 6 tendencias que definen el mercado</div>
+      <div class="sec-sub">Lo que el benchmark muestra con claridad sobre hacia dónde se mueve la industria de identidad digital globalmente.</div>
+    </div>
+  </div>
+  <div class="syn-grid">
+    <div class="syn-card"><div class="syn-n">1</div><div class="syn-title">El password está muriendo</div><div class="syn-body">Todas las empresas líderes están migrando a passkeys, biometría y passwordless. El password ya es el método de fallback, no el principal. Apple, Google, Okta y Auth0 empujan activamente en esta dirección. El password como método primario desaparecerá en los próximos 3–5 años.</div><div class="syn-unid">tiene la oportunidad de saltear la etapa intermedia. El video selfie de KYC es un onboarding robusto — el login diario debería ser biométrico desde ya.</div></div>
+    <div class="syn-card"><div class="syn-n">2</div><div class="syn-title">"Verificate una vez" es la promesa más poderosa</div><div class="syn-body">Airside, Sumsub (reusable ID 2025) y CLEAR construyen su propuesta sobre eliminar la repetición de verificación. Es el equivalente a lo que fue SSO para el login empresarial. Esta promesa resuena profundamente con los usuarios — nadie quiere verificarse dos veces.</div><div class="syn-unid">ya tiene esto como core del producto. El problema es que no lo está comunicando con esa claridad y esa contundencia. "Una sola llave para todo" es la promesa, hay que gritarla.</div></div>
+    <div class="syn-card"><div class="syn-n">3</div><div class="syn-title">La biometría sola no alcanza — necesita un propósito</div><div class="syn-body">Wicket tiene adopción porque resuelve la fila del estadio. CLEAR porque resuelve la fila del aeropuerto. La biometría sin un beneficio inmediato, concreto y recurrente no genera enrollment voluntario. El ejemplo anti-patrón: muchas apps piden face ID para login pero el usuario lo desactiva.</div><div class="syn-unid">tiene el propósito. ueno, Monchis, Olimpia — son beneficios concretos que el usuario ya usa. La biometría tiene que presentarse atada a ese beneficio, no como una feature en sí misma.</div></div>
+    <div class="syn-card"><div class="syn-n">4</div><div class="syn-title">Privacidad como diferenciador sostenible</div><div class="syn-body">Airside y Apple construyeron su propuesta sobre el control del usuario sobre sus datos. Esto genera confianza activa, no solo aceptación pasiva. En un mercado donde los usuarios están más alerta a las prácticas de datos, la privacidad no es un feature opcional — es un posicionamiento estratégico.</div><div class="syn-unid">puede ocupar la posición de "identidad digital que respeta al usuario" en Paraguay. Nadie la está tomando todavía. Es una ventana de oportunidad con fecha de vencimiento.</div></div>
+    <div class="syn-card"><div class="syn-n">5</div><div class="syn-title">El valor B2B se construye sobre la red</div><div class="syn-body">Jumio y Sumsub valen más mientras más empresas los usan. CLEAR y Airside valen más mientras más partners físicos aceptan su identidad. La red es el moat real. Cada nuevo partner multiplica el valor para todos los existentes — esto crea defensibilidad competitiva que el producto solo no puede generar.</div><div class="syn-unid">tiene 8 partners del grupo. El valor crece exponencialmente con cada empresa externa que se integre. La estrategia B2B de UNID tiene que pensarse como construcción de red, no como ventas individuales.</div></div>
+    <div class="syn-card"><div class="syn-n">6</div><div class="syn-title">Identidad propia vs. motor invisible</div><div class="syn-body">Las marcas con identidad propia (CLEAR, Apple, Airside) construyen loyalty directa con el usuario. Las invisibles (Jumio, Sumsub, Okta) construyen loyalty con la empresa cliente. Si la empresa cliente cambia de proveedor, el motor invisible desaparece de la vida del usuario sin que este lo note. La identidad propia es un activo, no un costo.</div><div class="syn-unid">tiene la oportunidad estratégica de ser visible para el usuario final. Eso es más valioso a largo plazo que ser perfecta infraestructura invisible. La decisión de cuánta marca propia construir es probablemente la más importante del año.</div></div>
+  </div>
+</div>
+
+<!-- ════════════ SÍNTESIS DE MARCA ════════════ -->
+<div id="marca" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num inv">◉</div>
+    <div>
+      <div class="sec-title">Las 5 posiciones de marca que existen en este mercado</div>
+      <div class="sec-sub">Cada empresa que funciona ocupa una posición inequívoca. Las que no la tienen quedan atrapadas en competencia por precio. UNID todavía puede elegir la suya.</div>
+    </div>
+  </div>
+  <div class="pos-grid">
+    <div class="pos-card">
+      <div class="pos-n">1</div>
+      <div>
+        <div class="pos-title">La institución de confianza</div>
+        <div class="pos-desc">Marca construida sobre reputación acumulada y autoridad institucional. Alta en credibilidad, baja en emoción. Funciona cuando el usuario no tiene alternativa o cuando la regulación obliga. Difícil de construir desde cero — requiere décadas o el respaldo del Estado.</div>
+        <div class="pos-cos"><span class="pos-co">Entrust</span><span class="pos-co">TSA PreCheck</span></div>
+      </div>
+      <div class="pos-score"><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><div class="score-lbl">Loyalty media</div></div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-n">2</div>
+      <div>
+        <div class="pos-title">El aliado del profesional B2B</div>
+        <div class="pos-desc">Marca construida para convencer al decisor empresarial. Invisible para el usuario final. El design es funcional y el copy habla de ROI, compliance y conversión. La loyalty es con la empresa cliente, no con el usuario. Escala bien, pero sin defensa contra la comoditización.</div>
+        <div class="pos-cos"><span class="pos-co">Jumio</span><span class="pos-co">Sumsub</span><span class="pos-co">Okta / Auth0</span></div>
+      </div>
+      <div class="pos-score"><div class="score-bar"><div class="score-fill" style="width:45%"></div></div><div class="score-lbl">Loyalty media-baja</div></div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-n">3</div>
+      <div>
+        <div class="pos-title">El guardián de mi privacidad</div>
+        <div class="pos-desc">Marca construida sobre una posición ética clara: tus datos son tuyos. Genera loyalidad activa, no solo aceptación pasiva. La posición más poderosa a largo plazo cuando se sostiene con consistencia real en el producto. No se puede fingir — el producto tiene que respaldar la promesa.</div>
+        <div class="pos-cos"><span class="pos-co">Airside</span><span class="pos-co">Apple</span></div>
+      </div>
+      <div class="pos-score"><div class="score-bar"><div class="score-fill" style="width:90%"></div></div><div class="score-lbl">Loyalty muy alta</div></div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-n">4</div>
+      <div>
+        <div class="pos-title">El pase premium</div>
+        <div class="pos-desc">Marca construida sobre exclusividad y beneficio tangible inmediato. El usuario la elige, la muestra con orgullo y la recomienda activamente. Genera brand equity real: la gente dice "tengo CLEAR" como dice "tengo AmEx Platinum". Requiere un beneficio concreto, recurrente y claramente perceptible.</div>
+        <div class="pos-cos"><span class="pos-co">CLEAR</span></div>
+      </div>
+      <div class="pos-score"><div class="score-bar"><div class="score-fill" style="width:85%"></div></div><div class="score-lbl">Loyalty alta</div></div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-n">5</div>
+      <div>
+        <div class="pos-title">El sistema operativo universal</div>
+        <div class="pos-desc">Marca construida sobre ubicuidad. El beneficio es la simplificación de un mundo fragmentado. Funciona con escala masiva: cuantos más lugares tienen el botón, más valioso se vuelve cada botón individual. Requiere una masa crítica de partners que UNID puede construir en Paraguay.</div>
+        <div class="pos-cos"><span class="pos-co">Google</span><span class="pos-co">Apple como IdP</span></div>
+      </div>
+      <div class="pos-score"><div class="score-bar"><div class="score-fill" style="width:95%"></div></div><div class="score-lbl">Loyalty máxima</div></div>
+    </div>
+  </div>
+
+  <div class="unid-opp">
+    <div class="unid-opp-title">¿Dónde podría estar UNID?</div>
+    <div class="unid-opp-sub">Hoy UNID está construyendo sin haber declarado explícitamente qué posición quiere ocupar. El benchmark muestra con claridad que las marcas más fuertes tienen una posición inequívoca — no intentan ser todo para todos. Las 3 opciones más naturales dado el contexto de Paraguay:</div>
+    <div class="opp-grid">
+      <div class="opp-card">
+        <div class="opp-letter">Opción A · Posición 4</div>
+        <div class="opp-title">"El pase que te conecta con lo que te apasiona"</div>
+        <div class="opp-desc">Foco en cultura y lifestyle local: fútbol, delivery, entretenimiento. CLEAR tiene el aeropuerto; UNID tiene el estadio, la pizzería y el banco. Una ventaja que ninguna de las 10 empresas del benchmark tiene o puede tener en Paraguay.</div>
+        <div class="opp-ref">REF → CLEAR · Wicket</div>
+      </div>
+      <div class="opp-card">
+        <div class="opp-letter">Opción B · Posición propia</div>
+        <div class="opp-title">"Tu identidad paraguaya, en un solo lugar"</div>
+        <div class="opp-desc">Posición de identidad nacional con orgullo de pertenencia. UNID como la llave digital de Paraguay. Requiere expansión hacia servicios del Estado para ser completamente creíble — actualmente en pausa (carpeta ciudadana). Visión 2027.</div>
+        <div class="opp-ref">REF → TSA PreCheck · Entrust</div>
+      </div>
+      <div class="opp-card">
+        <div class="opp-letter">Opción C · Posición 3</div>
+        <div class="opp-title">"Privacidad que podés ver"</div>
+        <div class="opp-desc">Primer jugador de identidad digital en Paraguay que construye sobre privacidad como valor fundamental. Similar a Airside pero con el respaldo de un banco real y un ecosistema de apps que la gente ya usa. Nadie la está tomando todavía.</div>
+        <div class="opp-ref">REF → Airside · Apple</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ PARA UNID ════════════ -->
+<div id="paraunid" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num inv" style="background:var(--gbg);border-color:var(--gborder);color:var(--green)">→</div>
+    <div>
+      <div class="sec-title">Para UNID — Qué nos llevamos del benchmark</div>
+      <div class="sec-sub">Síntesis de todo el análisis en decisiones concretas y aprendizajes directamente aplicables a la estrategia de UNID.</div>
+    </div>
+  </div>
+
+  <div class="pu-intro">
+    <div class="pu-intro-title">La situación de UNID en el mapa global</div>
+    <div class="pu-intro-text">UNID tiene hoy algo que ninguna de las 10 empresas analizadas tiene en conjunto: <strong style="color:var(--t1)">verificación real de identidad</strong> (como Jumio/Sumsub) + <strong style="color:var(--t1)">SSO entre apps populares</strong> (como Okta) + <strong style="color:var(--t1)">partners con carga emocional</strong> (Olimpia, Cerro — algo que ni CLEAR ni Airside lograron) + <strong style="color:var(--t1)">respaldo de un banco</strong>. El problema no es el producto — es que el usuario no entiende qué tiene ni por qué es valioso.</div>
+  </div>
+
+  <span class="label-sm">Lo que podemos robarle a cada empresa</span>
+  <div class="robar-grid">
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#0055FF;color:#fff">C</div><div><div class="robar-co">CLEAR</div><div class="robar-group">Espacios físicos</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>El lenguaje "Members" en lugar de "usuarios". La presencia física en puntos de alto tráfico emocional (estadios). El modelo donde la marca no es secundaria — es el producto.</div>
+        <div class="rb-action"><strong>Aplicar ahora</strong>Cartel "Ingreso rápido con UNID" en los estadios de Olimpia y Cerro durante los partidos. Costo casi cero, impacto de marca alto.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#22C55E;color:#000">W</div><div><div class="robar-co">Wicket</div><div class="robar-group">Espacios físicos</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>El flujo de enrollment previo: el fan vincula su cara antes del partido, no en la fila. UNID puede replicar esto para los socios con acceso físico.</div>
+        <div class="rb-avoid"><strong>No copiar</strong>La invisibilidad total de marca. Wicket no tiene relación directa con el fan — y eso es su debilidad estructural.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#1B3A6B;color:#fff">T</div><div><div class="robar-co">TSA PreCheck</div><div class="robar-group">Estado / Físico</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>La promesa conceptual: "ya te conozco, podés pasar más rápido." Aplica perfectamente a UNID: "ya tenés UNID, entrá directo."</div>
+        <div class="rb-avoid"><strong>No copiar</strong>Dejar que terceros construyan el brand equity. TSA dejó que las aerolíneas contaran su historia — y perdió el control de su propia narrativa.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#1B3A6B;color:#fff">J</div><div><div class="robar-co">Jumio</div><div class="robar-group">Validadores KYC</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>La "biometric re-authentication": después del KYC inicial, el login futuro es solo selfie. UNID debería eliminar el video completo en cada login.</div>
+        <div class="rb-avoid"><strong>No copiar</strong>La invisibilidad total. Jumio puede ser invisible porque vende B2B a precio alto. UNID necesita que el usuario sepa que es UNID.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#00D68F;color:#000">S</div><div><div class="robar-co">Sumsub</div><div class="robar-group">Validadores KYC</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>El copy de "identidad reutilizable": verificás una vez, usás en todos los servicios conectados. UNID tiene esto — hay que comunicarlo con esa claridad.</div>
+        <div class="rb-action"><strong>Aplicar ahora</strong>El verde UNID (#2CC76B) como diferenciador visual en un mercado paraguayo donde todos van al azul bancario. Consistencia total del color en todos los touchpoints.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#00457C;color:#fff">A</div><div><div class="robar-co">Airside</div><div class="robar-group">Wallet / Validadores</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>Todo el marco de privacidad. "Tu identidad te pertenece." La feature de perfil donde el usuario ve con qué apps está conectado y puede desconectarse — es producto y mensaje de marca al mismo tiempo.</div>
+        <div class="rb-action"><strong>Aplicar ahora</strong>Una pantalla en UNID donde el usuario vea "apps conectadas" con posibilidad de revocar. No requiere cambio técnico mayor — es UX que genera confianza.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#FF6600;color:#fff">O</div><div><div class="robar-co">Okta / Auth0</div><div class="robar-group">Motores B2B</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>La dualidad de audiencias con dos lenguajes distintos: uno para el usuario final (UNID como app), otro para empresas que integran (UNID como plataforma). Auth0 demostró que se puede tener las dos sin contradicción.</div>
+        <div class="rb-action"><strong>Aplicar ahora</strong>Una página/deck separado para empresas que quieran integrar UNID. El lenguaje cambia: no "una sola llave" sino "identidad bancaria lista para integrar".</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#C8102E;color:#fff">E</div><div><div class="robar-co">Entrust</div><div class="robar-group">Motores B2B</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>La visión de portafolio completo: del documento físico al wallet digital. Entrust compró Onfido + Airside para tener esa historia. UNID puede contarla para Paraguay sin comprar nada.</div>
+        <div class="rb-avoid"><strong>No copiar</strong>El lenguaje de PKI y enterprise que hace que nadie entienda qué hace Entrust. UNID tiene que contar la historia compleja en lenguaje humano.</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#f0f0eb;border:1px solid var(--b1);font-size:20px">🍎</div><div><div class="robar-co">Apple</div><div class="robar-group">Contenedores</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>El copy declarativo y moral: "privacy is a fundamental human right." UNID puede hablar de identidad con esa misma convicción. El botón de login como activo de marca: "Ingresá con UNID" con el mismo diseño siempre.</div>
+        <div class="rb-action"><strong>Aplicar ahora</strong>Un botón de "Ingresá con UNID" estandarizado que todas las apps del grupo implementen igual. Verde UNID, mismo copy, misma UX. Es el equivalente del "Sign in with Apple".</div>
+      </div>
+    </div>
+    <div class="robar-card">
+      <div class="robar-head"><div class="robar-icon" style="background:#4285F4;color:#fff">G</div><div><div class="robar-co">Google</div><div class="robar-group">Contenedores</div></div></div>
+      <div class="robar-body">
+        <div class="rb-steal"><strong>Robarle</strong>El efecto red de marca: cuantos más lugares tienen el botón "Sign in with Google", más valioso se vuelve cada botón. UNID necesita que cada nueva app que integre UNID haga el botón más poderoso para todas las anteriores.</div>
+        <div class="rb-action"><strong>Aplicar ahora</strong>Pensar la estrategia de crecimiento como construcción de red: cada nuevo partner no es "una venta" sino "más valor para los 8 que ya están".</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <span class="label-sm">Decisiones estratégicas que el benchmark ilumina</span>
+  <div class="decisiones">
+    <div class="dec"><div class="dec-num">1</div><div>
+      <div class="dec-q">¿UNID es infraestructura del grupo o producto para el usuario?</div>
+      <div class="dec-a">El benchmark muestra que son dos modelos de negocio distintos con implicaciones de marca opuestas. Los motores invisibles (Jumio, Okta) son infraestructura. Los contenedores (Apple, Google) y los pases premium (CLEAR) son productos con el usuario. UNID tiene que elegir — o puede ser las dos con dos capas separadas. Pero no puede construir sin haber respondido esto.</div>
+      <div class="dec-src">REF → Tendencia 6 · Okta/Auth0 · CLEAR · Airside</div>
+    </div></div>
+    <div class="dec"><div class="dec-num">2</div><div>
+      <div class="dec-q">¿Cuándo comunica UNID lo que es?</div>
+      <div class="dec-a">El problema central: UNID aparece durante el registro de otra app — el usuario está pensando en esa app, no en la identidad. El benchmark confirma que este es un problema de momento, no de producto. La solución no requiere desarrollo: es cambiar el copy del momento de aparición. "Con UNID, entrás a [app] y a todas las apps del grupo con los mismos datos. Una sola vez."</div>
+      <div class="dec-src">REF → CLEAR (copy centrado en beneficio) · Airside (el usuario controla) · Google (una cuenta para todo)</div>
+    </div></div>
+    <div class="dec"><div class="dec-num">3</div><div>
+      <div class="dec-q">¿Biometría cuándo y para qué?</div>
+      <div class="dec-a">El benchmark es claro: la biometría sin un propósito tangible inmediato no genera adoption voluntaria. El video selfie del KYC inicial es correcto y necesario. El login diario con video selfie es excesivo — genera fricción. El siguiente paso natural es: KYC completo una vez → passkey/biometría del dispositivo para login diario.</div>
+      <div class="dec-src">REF → Tendencia 3 · Apple (Face ID) · Jumio (biometric re-auth) · CLEAR (biometría = beneficio concreto)</div>
+    </div></div>
+    <div class="dec"><div class="dec-num">4</div><div>
+      <div class="dec-q">¿Qué posición de marca declara UNID?</div>
+      <div class="dec-a">Las 5 posiciones identificadas en el benchmark son todas viables — pero el momento de elegir es ahora, antes de que el mercado paraguayo esté más fragmentado. La más accesible con los assets actuales: Opción A (pase premium que te conecta con lo que te apasiona) + elementos de Opción C (privacidad visible). No intentar ser las 5 a la vez.</div>
+      <div class="dec-src">REF → Síntesis de marca · Las 5 posiciones · Airside + CLEAR como modelos</div>
+    </div></div>
+    <div class="dec"><div class="dec-num">5</div><div>
+      <div class="dec-q">¿Cómo crece UNID fuera del grupo?</div>
+      <div class="dec-a">El efecto red de Google y CLEAR demuestra que el valor de la identidad crece con cada partner que se suma. UNID necesita una estrategia de expansión B2B que piense en empresas fuera del grupo como amplificadores de red, no solo como clientes. Cada supermercado, cada farmacia, cada app paraguaya que integre "Ingresá con UNID" hace el botón más poderoso para todos.</div>
+      <div class="dec-src">REF → Tendencia 5 · Google (efecto red) · Airside (el riesgo de red pequeña)</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ════════════ TABLA COMPARATIVA ════════════ -->
+<div id="tabla" class="page">
+  <div class="sec-hdr">
+    <div class="sec-num inv">≡</div>
+    <div>
+      <div class="sec-title">Tabla comparativa — todos los atributos en una vista</div>
+      <div class="sec-sub">Comparación directa de las 10 empresas y el estado actual de UNID.</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Empresa</th><th>Grupo</th><th>Marca visible</th><th>Biometría</th><th>Contraseña</th><th>Flujo enrollment</th><th>ID reutilizable</th><th>Rel. directa B2C</th><th>Perfil usuario</th><th>Posición de marca</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="co-n">CLEAR</td>
+          <td><span class="tgroup" style="background:#0a1a3a;color:#6688ff">Físico</span></td>
+          <td><span class="tyes">Muy alta</span></td>
+          <td>Iris + Huella + Facial</td>
+          <td><span class="tno">No</span></td>
+          <td>3 pasos, 1 presencial</td>
+          <td><span class="tyes">Sí</span></td>
+          <td><span class="tyes">Directa</span></td>
+          <td><span class="tyes">Sí</span></td>
+          <td>Pase premium</td>
+        </tr>
+        <tr>
+          <td class="co-n">Wicket</td>
+          <td><span class="tgroup" style="background:#0a2010;color:#44aa55">Físico</span></td>
+          <td><span class="tno">No (marca venue)</span></td>
+          <td>Facial</td>
+          <td><span class="tno">No</span></td>
+          <td>2 pasos previos</td>
+          <td><span class="tyes">Sí</span></td>
+          <td><span class="tno">B2B2C puro</span></td>
+          <td><span class="tmid">Básico</span></td>
+          <td>Motor invisible</td>
+        </tr>
+        <tr>
+          <td class="co-n">TSA PreCheck</td>
+          <td><span class="tgroup" style="background:#18182a;color:#7788cc">Estado</span></td>
+          <td><span class="tmid">Alta (funcional)</span></td>
+          <td>Fingerprint + Facial</td>
+          <td><span class="tmid">Solo portal</span></td>
+          <td>3 pasos, meses espera</td>
+          <td><span class="tyes">5 años</span></td>
+          <td><span class="tyes">Directa</span></td>
+          <td><span class="tyes">Sí</span></td>
+          <td>Institución</td>
+        </tr>
+        <tr>
+          <td class="co-n">Jumio</td>
+          <td><span class="tgroup" style="background:#2a1808;color:#cc8833">KYC</span></td>
+          <td><span class="tno">Nula</span></td>
+          <td>Facial + Doc</td>
+          <td><span class="tno">No reemplaza</span></td>
+          <td>2 pasos, &lt;60 seg</td>
+          <td><span class="tmid">Bio re-auth</span></td>
+          <td><span class="tno">Invisible</span></td>
+          <td><span class="tno">No</span></td>
+          <td>Motor invisible</td>
+        </tr>
+        <tr>
+          <td class="co-n">Sumsub</td>
+          <td><span class="tgroup" style="background:#0a2a18;color:#44bb77">KYC</span></td>
+          <td><span class="tno">Nula</span></td>
+          <td>Facial + Video</td>
+          <td><span class="tno">No reemplaza</span></td>
+          <td>2–3 pasos, 2–3 min</td>
+          <td><span class="tyes">Reusable 2025</span></td>
+          <td><span class="tno">Invisible</span></td>
+          <td><span class="tno">No</span></td>
+          <td>Motor invisible</td>
+        </tr>
+        <tr>
+          <td class="co-n">Airside</td>
+          <td><span class="tgroup" style="background:#0a1828;color:#4488cc">Wallet</span></td>
+          <td><span class="tmid">Media-alta</span></td>
+          <td>Facial + NFC</td>
+          <td><span class="tno">No (PIN)</span></td>
+          <td>3 pasos, app propia</td>
+          <td><span class="tyes">Sí</span></td>
+          <td><span class="tyes">Directa</span></td>
+          <td><span class="tyes">Sí (central)</span></td>
+          <td>Guardián privacidad</td>
+        </tr>
+        <tr>
+          <td class="co-n">Okta / Auth0</td>
+          <td><span class="tgroup" style="background:#2a1808;color:#cc7722">Motor B2B</span></td>
+          <td><span class="tmid">Opcional</span></td>
+          <td>Device biometrics</td>
+          <td><span class="tmid">Opcional</span></td>
+          <td>Variable</td>
+          <td><span class="tyes">SSO</span></td>
+          <td><span class="tno">B2B puro</span></td>
+          <td><span class="tmid">Vía empresa</span></td>
+          <td>Aliado B2B</td>
+        </tr>
+        <tr>
+          <td class="co-n">Entrust</td>
+          <td><span class="tgroup" style="background:#2a0808;color:#cc4444">Motor B2B</span></td>
+          <td><span class="tno">Muy baja</span></td>
+          <td>Facial + PKI</td>
+          <td><span class="tmid">Certificados</span></td>
+          <td>Variable</td>
+          <td><span class="tyes">Certificados</span></td>
+          <td><span class="tno">B2B puro</span></td>
+          <td><span class="tno">No</span></td>
+          <td>Institución</td>
+        </tr>
+        <tr>
+          <td class="co-n">Apple</td>
+          <td><span class="tgroup" style="background:#1a1a1a;color:#666">Contenedor</span></td>
+          <td><span class="tyes">Máxima</span></td>
+          <td>Face ID / Touch ID</td>
+          <td><span class="tno">No (passkeys)</span></td>
+          <td>0 pasos extra</td>
+          <td><span class="tyes">Passkeys sync</span></td>
+          <td><span class="tyes">Directa</span></td>
+          <td><span class="tyes">Sí (granular)</span></td>
+          <td>Guardián privacidad</td>
+        </tr>
+        <tr>
+          <td class="co-n">Google</td>
+          <td><span class="tgroup" style="background:#0a1028;color:#5577cc">Contenedor</span></td>
+          <td><span class="tyes">Máxima</span></td>
+          <td>Device biometrics</td>
+          <td><span class="tmid">Fallback</span></td>
+          <td>0 pasos extra</td>
+          <td><span class="tyes">Passkeys sync</span></td>
+          <td><span class="tyes">Directa</span></td>
+          <td><span class="tyes">Sí (muy rico)</span></td>
+          <td>Sistema operativo</td>
+        </tr>
+        <tr class="unid-row">
+          <td class="co-n">UNID (hoy)</td>
+          <td><span class="tgroup" style="background:var(--gbg);color:var(--green);border:1px solid var(--gborder)">Paraguay</span></td>
+          <td><span class="tmid">Media — crece con ecosistema</span></td>
+          <td>Video selfie KYC</td>
+          <td><span class="tmid">Sí — una para todo</span></td>
+          <td>CI + contraseña + video</td>
+          <td><span class="tyes">✓ Core del producto</span></td>
+          <td><span class="tyes">✓ Directa</span></td>
+          <td><span class="tmid">En construcción</span></td>
+          <td style="color:var(--green);font-weight:700">Por definir →</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+function go(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tab(btn,id){
+  const card=btn.closest('.co-card');
+  card.querySelectorAll('.co-tab').forEach(t=>t.classList.remove('active'));
+  card.querySelectorAll('.co-panel,.unid-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+// lazy load images with fade-in
+document.querySelectorAll('.co-screen img').forEach(img=>{
+  img.classList.add('loading');
+  img.onload=()=>{img.classList.remove('loading');img.style.opacity=1};
+  img.onerror=()=>{img.style.display='none'};
+});
+</script>
+</body>
+</html>
