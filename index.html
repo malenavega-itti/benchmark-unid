@@ -41,7 +41,64 @@ body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;line-he
 .stat-num{font-family:'Inter',sans-serif;font-size:26px;font-weight:800;color:var(--t1);line-height:1}
 .stat-label{font-size:11px;color:var(--t3);margin-top:4px;letter-spacing:.3px}
 
-/* ── NAV ── */
+/* ── NAV ADD BUTTON ── */
+.nav-btn-add{color:var(--green)!important;border-color:transparent}
+.nav-btn-add .nav-dot{background:var(--green)!important}
+.nav-btn-add:hover{background:var(--gbg)}
+
+/* ── SEARCH PAGE ── */
+.search-wrap{max-width:860px;margin:0 auto;padding:56px 0 80px}
+.search-hero{text-align:center;margin-bottom:48px}
+.search-hero h2{font-size:32px;font-weight:800;color:var(--t1);margin-bottom:10px;line-height:1.2}
+.search-hero h2 em{color:var(--green);font-style:normal}
+.search-hero p{color:var(--t3);font-size:14px;max-width:480px;margin:0 auto;line-height:1.7}
+
+.search-box{display:flex;gap:0;background:var(--s1);border:1.5px solid var(--b1);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);transition:border-color .2s,box-shadow .2s;margin-bottom:12px}
+.search-box:focus-within{border-color:var(--green);box-shadow:0 4px 24px rgba(26,170,85,.12)}
+.search-input{flex:1;border:none;outline:none;padding:18px 22px;font-size:16px;font-family:'Inter',sans-serif;color:var(--t1);background:transparent}
+.search-input::placeholder{color:var(--t4)}
+.search-btn{padding:0 28px;background:var(--green);color:#fff;border:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;white-space:nowrap;letter-spacing:.3px}
+.search-btn:hover{background:var(--green-dim)}
+.search-btn:disabled{background:var(--b2);cursor:not-allowed}
+.search-hint{font-size:11px;color:var(--t4);text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:.3px}
+
+.search-examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+.ex-chip{padding:6px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:20px;font-size:12px;color:var(--t3);cursor:pointer;transition:all .15s;font-family:'IBM Plex Mono',monospace}
+.ex-chip:hover{background:var(--gbg);border-color:var(--gborder);color:var(--green)}
+
+/* loading state */
+.search-loading{display:none;text-align:center;padding:48px 0}
+.search-loading.visible{display:block}
+.loading-spinner{width:36px;height:36px;border:3px solid var(--b1);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--t3);letter-spacing:.5px}
+.loading-company{color:var(--green);font-weight:600}
+
+/* error state */
+.search-error{display:none;background:#fff5f5;border:1px solid #fecaca;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#b91c1c}
+.search-error.visible{display:block}
+
+/* results */
+.search-results{margin-top:40px}
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--b1)}
+.results-title{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t4);letter-spacing:1px;text-transform:uppercase}
+.results-clear{font-size:12px;color:var(--t4);cursor:pointer;background:none;border:1px solid var(--b2);border-radius:6px;padding:4px 10px;font-family:'IBM Plex Mono',monospace;transition:all .15s}
+.results-clear:hover{color:var(--red);border-color:var(--red)}
+.results-grid{display:flex;flex-direction:column;gap:24px}
+
+/* generated card label */
+.gen-badge{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;color:var(--green);background:var(--gbg);border:1px solid var(--gborder);padding:3px 8px;border-radius:20px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+
+/* ── METODOLOGÍA BANNER ── */
+.metodo-wrap{background:var(--s1);border-bottom:1px solid var(--b1);padding:14px 60px}
+.metodo{display:flex;align-items:center;gap:16px;max-width:1500px;flex-wrap:wrap}
+.metodo-icon{font-size:16px;flex-shrink:0}
+.metodo-title{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--green);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.metodo-text{font-size:12px;color:var(--t3);line-height:1.5}
+.metodo-pills{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.metodo-pill{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;padding:3px 9px;border-radius:20px;border:1px solid var(--b2);color:var(--t4);white-space:nowrap;letter-spacing:.3px}
+.metodo-pill.ai{border-color:var(--gborder);color:var(--green);background:var(--gbg)}
+@media(max-width:900px){.metodo-pills{margin-left:0}.metodo-wrap{padding:12px 20px}}
 .nav-wrap{position:sticky;top:0;z-index:200;background:rgba(245,245,240,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1)}
 .nav{display:flex;padding:0 60px;overflow-x:auto;scrollbar-width:none;gap:0}
 .nav::-webkit-scrollbar{display:none}
@@ -90,7 +147,7 @@ body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;line-he
 .co-visual{display:grid;grid-template-columns:148px 1fr;border-bottom:1px solid var(--b1);height:220px;overflow:hidden}
 .co-logo-panel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px 14px;border-right:1px solid var(--b1);background:var(--s2)}
 .co-logo-wrap{width:62px;height:62px;border-radius:15px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.06)}
-.co-logo-wrap img{width:100%;height:100%;object-fit:contain;padding:8px}
+.co-logo-wrap img{width:100%;height:100%;object-fit:contain;padding:6px;image-rendering:auto}
 .co-palette{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
 .cp{width:15px;height:15px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
 .co-logo-name{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--t4);letter-spacing:.2px;text-align:center;line-height:1.4}
@@ -307,7 +364,23 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
   </div>
 </header>
 
-<!-- ════════════════ NAV ════════════════ -->
+<!-- ════════════ METODOLOGÍA ════════════ -->
+<div class="metodo-wrap">
+  <div class="metodo">
+    <div class="metodo-icon">🔍</div>
+    <div>
+      <div class="metodo-title">Cómo se hizo este benchmark</div>
+      <div class="metodo-text">Análisis generado con <strong>Claude (Anthropic)</strong> a partir de sitios web oficiales, casos de uso documentados, cobertura de prensa especializada y documentación pública de cada empresa. Los insights estratégicos <em>→ Para UNID</em> fueron elaborados por el equipo de Producto UNID en base a ese insumo.</div>
+    </div>
+    <div class="metodo-pills">
+      <span class="metodo-pill ai">IA · Claude Sonnet</span>
+      <span class="metodo-pill">Sitios oficiales</span>
+      <span class="metodo-pill">Prensa especializada</span>
+      <span class="metodo-pill">Docs públicos</span>
+      <span class="metodo-pill">Marzo 2026</span>
+    </div>
+  </div>
+</div>
 <div class="nav-wrap">
   <nav class="nav">
     <button class="nav-btn active" onclick="go('g1',this)"><span class="nav-dot"></span>① Espacios físicos</button>
@@ -318,6 +391,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
     <button class="nav-btn" onclick="go('marca',this)"><span class="nav-dot"></span>Síntesis de marca</button>
     <button class="nav-btn" onclick="go('paraunid',this)"><span class="nav-dot"></span>→ Para UNID</button>
     <button class="nav-btn" onclick="go('tabla',this)"><span class="nav-dot"></span>Tabla comparativa</button>
+    <button class="nav-btn nav-btn-add" onclick="go('buscar',this)"><span class="nav-dot"></span>＋ Agregar empresa</button>
   </nav>
 </div>
 
@@ -346,13 +420,13 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/clearme.com" alt="CLEAR" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=clearme.com&sz=128" alt="CLEAR" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">C</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#0055FF"></div><div class="cp" style="background:#111"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
           <div class="co-logo-name">clearme.com</div>
         </div>
         <div class="co-screens">
           <div class="co-screen">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/CLEAR_kiosk%2C_Orlando_International_Airport.jpg/640px-CLEAR_kiosk%2C_Orlando_International_Airport.jpg" loading="lazy"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/CLEAR_kiosk%2C_Orlando_International_Airport.jpg/640px-CLEAR_kiosk%2C_Orlando_International_Airport.jpg" loading="lazy" onerror="this.style.display='none'" />
             <div class="co-screen-cap">Kiosco físico en aeropuerto</div>
           </div>
           <div class="co-screen">
@@ -420,13 +494,13 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/wicket.io" alt="Wicket" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=wicket.io&sz=128" alt="Wicket" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">W</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#22C55E"></div><div class="cp" style="background:#111"></div><div class="cp" style="background:#F0FDF4;border-color:#ddd"></div></div>
           <div class="co-logo-name">wicket.io</div>
         </div>
         <div class="co-screens">
           <div class="co-screen">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Facial_recognition_-_Messe_Frankfurt.jpg/640px-Facial_recognition_-_Messe_Frankfurt.jpg" loading="lazy"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Facial_recognition_-_Messe_Frankfurt.jpg/640px-Facial_recognition_-_Messe_Frankfurt.jpg" loading="lazy" onerror="this.style.display='none'" />
             <div class="co-screen-cap">Reconocimiento facial en estadio</div>
           </div>
           <div class="co-screen">
@@ -494,17 +568,17 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/TSA_logo.svg/200px-TSA_logo.svg.png" alt="TSA" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/TSA_logo.svg/200px-TSA_logo.svg.png" alt="TSA" loading="lazy" onerror="this.style.display='none'" /></div>
           <div class="co-palette"><div class="cp" style="background:#002868"></div><div class="cp" style="background:#BF0A30"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
           <div class="co-logo-name">tsa.dhs.gov</div>
         </div>
         <div class="co-screens">
           <div class="co-screen">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/TSA_agents_at_SEA.jpg/640px-TSA_agents_at_SEA.jpg" loading="lazy"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/TSA_agents_at_SEA.jpg/640px-TSA_agents_at_SEA.jpg" loading="lazy" onerror="this.style.display='none'" />
             <div class="co-screen-cap">Carril PreCheck — aeropuerto Seattle</div>
           </div>
           <div class="co-screen">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Automated_passport_control_kiosk_%28Seattle%29.jpg/640px-Automated_passport_control_kiosk_%28Seattle%29.jpg" loading="lazy"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Automated_passport_control_kiosk_%28Seattle%29.jpg/640px-Automated_passport_control_kiosk_%28Seattle%29.jpg" loading="lazy" onerror="this.style.display='none'" />
             <div class="co-screen-cap">Kiosco Global Entry</div>
           </div>
         </div>
@@ -566,7 +640,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/jumio.com" alt="Jumio" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=jumio.com&sz=128" alt="Jumio" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">J</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#1B3A6B"></div><div class="cp" style="background:#4A90E2"></div><div class="cp" style="background:#EEF2FB;border-color:#ddd"></div></div>
           <div class="co-logo-name">jumio.com</div>
         </div>
@@ -637,7 +711,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/sumsub.com" alt="Sumsub" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=sumsub.com&sz=128" alt="Sumsub" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">S</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#00D68F"></div><div class="cp" style="background:#1A1A2E"></div><div class="cp" style="background:#E6FFF7;border-color:#ddd"></div></div>
           <div class="co-logo-name">sumsub.com</div>
         </div>
@@ -718,7 +792,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/airside.io" alt="Airside" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=airside.io&sz=128" alt="Airside" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">A</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#00457C"></div><div class="cp" style="background:#00BFCF"></div><div class="cp" style="background:#F0F9FF;border-color:#ddd"></div></div>
           <div class="co-logo-name">airside.io</div>
         </div>
@@ -815,7 +889,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap" style="background:#003049"><img src="https://logo.clearbit.com/okta.com" alt="Okta" loading="lazy" style="filter:brightness(10)"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=okta.com&sz=128" alt="Okta" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">O</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#003049"></div><div class="cp" style="background:#FF6600"></div><div class="cp" style="background:#F7F8FA;border-color:#ddd"></div></div>
           <div class="co-logo-name">okta.com · auth0.com</div>
         </div>
@@ -896,13 +970,13 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://logo.clearbit.com/entrust.com" alt="Entrust" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=entrust.com&sz=128" alt="Entrust" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\"font-size:22px;font-weight:700;color:#555\">E</span>'" /></div>
           <div class="co-palette"><div class="cp" style="background:#003087"></div><div class="cp" style="background:#C8102E"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
           <div class="co-logo-name">entrust.com</div>
         </div>
         <div class="co-screens">
           <div class="co-screen">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Biometric_passport.jpg/640px-Biometric_passport.jpg" loading="lazy"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Biometric_passport.jpg/640px-Biometric_passport.jpg" loading="lazy" onerror="this.style.display='none'" />
             <div class="co-screen-cap">Documentos de identidad para gobiernos</div>
           </div>
           <div class="co-screen">
@@ -975,13 +1049,13 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap" style="background:#000"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" loading="lazy" style="filter:invert(1);padding:13px"/></div>
+          <div class="co-logo-wrap" style="background:#000"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" loading="lazy" style="filter:invert(1);padding:13px" onerror="this.style.display='none'" /></div>
           <div class="co-palette"><div class="cp" style="background:#111;border-color:#aaa"></div><div class="cp" style="background:#f5f5f7;border-color:#ddd"></div><div class="cp" style="background:#fff;border-color:#ddd"></div></div>
           <div class="co-logo-name">apple.com</div>
         </div>
         <div class="co-screens">
           <div class="co-screen">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/IPhone_14_Pro_%22Dynamic_Island%22.jpg/400px-IPhone_14_Pro_%22Dynamic_Island%22.jpg" loading="lazy"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/IPhone_14_Pro_%22Dynamic_Island%22.jpg/400px-IPhone_14_Pro_%22Dynamic_Island%22.jpg" loading="lazy" onerror="this.style.display='none'" />
             <div class="co-screen-cap">Face ID — tu cara es tu contraseña</div>
           </div>
           <div class="co-screen">
@@ -1044,7 +1118,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
       </div>
             <div class="co-visual">
         <div class="co-logo-panel">
-          <div class="co-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/320px-Google_2015_logo.svg.png" alt="Google" loading="lazy"/></div>
+          <div class="co-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/320px-Google_2015_logo.svg.png" alt="Google" loading="lazy" onerror="this.style.display='none'" /></div>
           <div class="co-palette"><div class="cp" style="background:#4285F4"></div><div class="cp" style="background:#DB4437"></div><div class="cp" style="background:#F4B400"></div><div class="cp" style="background:#0F9D58"></div></div>
           <div class="co-logo-name">google.com</div>
         </div>
@@ -1054,7 +1128,7 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
               <div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div>
               <div class="bf-content" style="background:#fff">
                 <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/64px-Google_%22G%22_logo.svg.png" style="height:14px;width:auto" alt="G"/>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/64px-Google_%22G%22_logo.svg.png" style="height:14px;width:auto" alt="G" onerror="this.style.display='none'" />
                   <div class="m-lbl" style="color:#3c4043;font-weight:500">Continuar con Google</div>
                 </div>
                 <div style="background:#f8f9fa;border-radius:4px;height:12px;margin-bottom:3px"></div>
@@ -1485,6 +1559,50 @@ td.co-n{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif;font-size
   </div>
 </div>
 
+<!-- ════════════ BUSCAR EMPRESA ════════════ -->
+<div id="buscar" class="page">
+  <div class="search-wrap">
+
+    <div class="search-hero">
+      <h2>Analizá cualquier empresa<br/><em>on demand</em></h2>
+      <p>Escribí el nombre de cualquier empresa de identidad digital, autenticación o verificación. Claude la analiza con el mismo formato del benchmark.</p>
+    </div>
+
+    <div class="search-box">
+      <input id="searchInput" class="search-input" type="text" placeholder="Ej: Stripe Identity, Onfido, Persona..." maxlength="80" onkeydown="if(event.key==='Enter')runSearch()"/>
+      <button id="searchBtn" class="search-btn" onclick="runSearch()">Analizar →</button>
+    </div>
+    <div class="search-hint">Powered by Claude · Anthropic · los análisis se generan en tiempo real</div>
+
+    <div class="search-examples">
+      <span class="ex-chip" onclick="fillSearch('Stripe Identity')">Stripe Identity</span>
+      <span class="ex-chip" onclick="fillSearch('Onfido')">Onfido</span>
+      <span class="ex-chip" onclick="fillSearch('Persona')">Persona</span>
+      <span class="ex-chip" onclick="fillSearch('Veriff')">Veriff</span>
+      <span class="ex-chip" onclick="fillSearch('ID.me')">ID.me</span>
+      <span class="ex-chip" onclick="fillSearch('Socure')">Socure</span>
+      <span class="ex-chip" onclick="fillSearch('Plaid')">Plaid</span>
+      <span class="ex-chip" onclick="fillSearch('Yoti')">Yoti</span>
+    </div>
+
+    <div id="searchLoading" class="search-loading">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Analizando <span id="loadingCompany" class="loading-company"></span>…</div>
+    </div>
+
+    <div id="searchError" class="search-error"></div>
+
+    <div id="searchResults" class="search-results" style="display:none">
+      <div class="results-header">
+        <span class="results-title" id="resultsCount"></span>
+        <button class="results-clear" onclick="clearResults()">Limpiar resultados</button>
+      </div>
+      <div id="resultsGrid" class="results-grid"></div>
+    </div>
+
+  </div>
+</div>
+
 </div><!-- /main -->
 
 <script>
@@ -1502,12 +1620,209 @@ function tab(btn,id){
   btn.classList.add('active');
   document.getElementById(id).classList.add('active');
 }
-// lazy load images with fade-in
-document.querySelectorAll('.co-screen img').forEach(img=>{
-  img.classList.add('loading');
-  img.onload=()=>{img.classList.remove('loading');img.style.opacity=1};
-  img.onerror=()=>{img.style.display='none'};
+// ══════════════════════════════════════════
+// BUSCADOR ON DEMAND — Claude API
+// ══════════════════════════════════════════
+
+let generatedCards = JSON.parse(localStorage.getItem('unid_cards') || '[]');
+let cardCounter = generatedCards.length;
+
+function fillSearch(name) {
+  document.getElementById('searchInput').value = name;
+  document.getElementById('searchInput').focus();
+}
+
+function clearResults() {
+  generatedCards = [];
+  cardCounter = 0;
+  localStorage.removeItem('unid_cards');
+  document.getElementById('resultsGrid').innerHTML = '';
+  document.getElementById('searchResults').style.display = 'none';
+}
+
+// Render saved cards on load
+window.addEventListener('DOMContentLoaded', () => {
+  if (generatedCards.length > 0) {
+    generatedCards.forEach(c => appendCard(c.html, c.name, false));
+    updateResultsHeader();
+  }
 });
+
+function updateResultsHeader() {
+  const grid = document.getElementById('resultsGrid');
+  const count = grid.querySelectorAll('.co-card').length;
+  document.getElementById('resultsCount').textContent = count + ' empresa' + (count !== 1 ? 's' : '') + ' analizada' + (count !== 1 ? 's' : '');
+  document.getElementById('searchResults').style.display = count > 0 ? 'block' : 'none';
+}
+
+function appendCard(html, name, save = true) {
+  const grid = document.getElementById('resultsGrid');
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = html;
+  const card = wrapper.firstElementChild;
+  if (!card) return;
+
+  // add generated badge to card header
+  const coName = card.querySelector('.co-name');
+  if (coName && !coName.querySelector('.gen-badge')) {
+    const badge = document.createElement('span');
+    badge.className = 'gen-badge';
+    badge.innerHTML = '✦ IA generado';
+    coName.appendChild(badge);
+  }
+
+  // fix tab IDs to avoid conflicts
+  const uid = 'g' + Date.now() + Math.random().toString(36).slice(2,5);
+  card.querySelectorAll('[id]').forEach(el => {
+    const old = el.id;
+    el.id = uid + old;
+  });
+  card.querySelectorAll('[onclick]').forEach(el => {
+    el.setAttribute('onclick', el.getAttribute('onclick').replace(/tab\(this,'([^']+)'\)/, (m, id) => `tab(this,'${uid}${id}')`));
+  });
+
+  grid.prepend(card);
+
+  // lazy load new images
+  card.querySelectorAll('.co-screen>img').forEach(img => {
+    img.onload = () => { img.classList.remove('loading'); img.style.opacity = 1; };
+    img.onerror = () => { img.style.display = 'none'; };
+  });
+
+  if (save) {
+    generatedCards.unshift({ name, html });
+    // keep max 20
+    if (generatedCards.length > 20) generatedCards.pop();
+    try { localStorage.setItem('unid_cards', JSON.stringify(generatedCards)); } catch(e) {}
+  }
+
+  updateResultsHeader();
+}
+
+async function runSearch() {
+  const input = document.getElementById('searchInput');
+  const company = input.value.trim();
+  if (!company) { input.focus(); return; }
+
+  const btn = document.getElementById('searchBtn');
+  const loading = document.getElementById('searchLoading');
+  const errorBox = document.getElementById('searchError');
+
+  btn.disabled = true;
+  errorBox.classList.remove('visible');
+  loading.classList.add('visible');
+  document.getElementById('loadingCompany').textContent = company;
+
+  const PROMPT = `Sos un analista de producto experto en identidad digital, autenticación y verificación. 
+Analizá la empresa "${company}" y generá ÚNICAMENTE un bloque HTML de una tarjeta de benchmark.
+
+REGLAS ESTRICTAS:
+- Devolvé SOLO el HTML, sin explicaciones, sin markdown, sin bloques de código
+- Empezá con <div class="co-card"> y terminá con </div>
+- Usá IDs únicos con el prefijo "x${Date.now().toString(36)}-" para todos los ids
+- No uses imágenes externas que puedan fallar — usá solo los frames CSS (pf/bf) o emojis
+
+ESTRUCTURA EXACTA A SEGUIR:
+
+<div class="co-card">
+  <div class="co-head">
+    <div class="co-icon" style="background:[COLOR_MARCA];color:#fff">[INICIAL]</div>
+    <div class="co-info">
+      <div class="co-name">[NOMBRE EMPRESA]</div>
+      <div class="co-sub">[SEGMENTO] · [DESCRIPCION CORTA]</div>
+    </div>
+    <span class="co-tag" style="background:[BG_TAG];color:[COLOR_TAG]">[CATEGORIA]</span>
+  </div>
+  <div class="co-visual">
+    <div class="co-logo-panel">
+      <div class="co-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=[DOMINIO]&sz=128" alt="[NOMBRE]" loading="lazy" onerror="this.style.display='none'"/></div>
+      <div class="co-palette"><div class="cp" style="background:[COLOR1]"></div><div class="cp" style="background:[COLOR2]"></div><div class="cp" style="background:[COLOR3];border-color:#ddd"></div></div>
+      <div class="co-logo-name">[DOMINIO]</div>
+    </div>
+    <div class="co-screens">
+      <div class="co-screen">
+        [FRAME CSS — usa pf (phone) o bf (browser) con mockup visual del producto principal]
+      </div>
+      <div class="co-screen">
+        [FRAME CSS — usa pf o bf con mockup visual de la experiencia del usuario o dashboard]
+      </div>
+    </div>
+  </div>
+  <div class="co-tabs">
+    <button class="co-tab active" onclick="tab(this,'[PREFIJO]-f')">Funcional</button>
+    <button class="co-tab" onclick="tab(this,'[PREFIJO]-m')">Marca</button>
+    <button class="co-tab unid-tab" onclick="tab(this,'[PREFIJO]-u')">→ UNID</button>
+  </div>
+  <div id="[PREFIJO]-f" class="co-panel active">
+    <div class="row"><div class="row-lbl">Historia</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">PV B2C</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">PV B2B</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Verificación</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Features</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Promesas</div><div class="quote">"[COPY REAL]"</div></div>
+    <div class="row"><div class="row-lbl">Contraseña</div><div class="row-val [hi/lo/mid]">[...]</div></div>
+    <div class="row"><div class="row-lbl">Identidad</div><div class="row-val">[...]</div></div>
+  </div>
+  <div id="[PREFIJO]-m" class="co-panel">
+    <div class="row"><div class="row-lbl">Nombre</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Color</div><div class="swatches"><div class="sw" style="background:[COLOR]"></div><span class="sw-name">[NOMBRE COLOR]</span></div></div>
+    <div class="row"><div class="row-lbl">Color — por qué</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Voz / Copy</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Personalidad</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Historia emocional</div><div class="row-val">[...]</div></div>
+    <div class="row"><div class="row-lbl">Visibilidad</div><div class="row-val">[...]</div></div>
+  </div>
+  <div id="[PREFIJO]-u" class="unid-panel">
+    <div class="u-steal"><div class="u-steal-lbl">Qué robarle</div><div class="u-steal-text">[Qué puede aprender UNID de esta empresa]</div></div>
+    <div class="u-apply"><div class="u-apply-lbl">Aplicación directa</div><div class="u-apply-text">[Cómo aplicarlo concretamente a UNID en Paraguay]</div></div>
+    <div class="u-avoid"><div class="u-avoid-lbl">Qué no copiar</div><div class="u-avoid-text">[Qué NO debería replicar UNID]</div></div>
+  </div>
+</div>
+
+Para los frames CSS de co-screens usá esta estructura:
+- Phone: <div class="pf"><div class="pf-body"><div class="pf-notch"></div><div class="pf-screen" style="background:[COLOR]">...contenido mockup...</div></div></div>
+- Browser: <div class="bf"><div class="bf-body"><div class="bf-bar"><div class="bf-dot" style="background:#ff5f57"></div><div class="bf-dot" style="background:#febc2e"></div><div class="bf-dot" style="background:#28c840"></div><div class="bf-url"></div></div><div class="bf-content" style="background:[COLOR]">...contenido mockup...</div></div></div>
+- Átomos disponibles: <div class="m-bar" style="height:Xpx;width:X%;background:COLOR;opacity:.X;margin-bottom:Xpx"></div> y <div class="m-lbl" style="color:X;font-weight:X">texto</div> y <div class="m-tag" style="background:X;color:X">texto</div>
+
+El análisis → UNID debe ser específico para ueno bank en Paraguay: un ecosistema de apps (ueno bank, tuti, MUV, Monchis, Club Olimpia, Club Cerro Porteño, APF, wepa) con SSO + KYC por video selfie + CI paraguaya.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{ role: 'user', content: PROMPT }]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${res.status}`);
+    }
+
+    const data = await res.json();
+    const html = data.content?.map(b => b.text || '').join('').trim()
+      .replace(/^```html?\n?/, '').replace(/\n?```$/, '');
+
+    if (!html || !html.includes('co-card')) {
+      throw new Error('La respuesta no tiene el formato esperado. Intentá de nuevo.');
+    }
+
+    appendCard(html, company);
+    input.value = '';
+    document.getElementById('searchResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (err) {
+    errorBox.textContent = '⚠ ' + err.message;
+    errorBox.classList.add('visible');
+  } finally {
+    btn.disabled = false;
+    loading.classList.remove('visible');
+  }
+}
+
 </script>
 </body>
 </html>
